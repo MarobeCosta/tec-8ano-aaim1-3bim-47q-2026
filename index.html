@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Revisão da 1ª AAIM · 8º ano · 3º bimestre · Algoritmos, listas e repetição com Python</title>
+<style>
+:root{
+  --verde:#5FBFAA; --verde-esc:#2E8C7A; --roxo:#7B2D8E; --roxo-esc:#5A1F69;
+  --creme:#F2F7F5; --tinta:#17242B; --cinza:#6B7C85; --borda:#D3DEDB;
+  --ok:#26890C; --erro:#E21B3C; --alerta:#D89E00; --conv:#8E2B2B; --convbg:#FBECEC;
+  --destaque:#FFF3CD;
+  --b3:#F0C419; --b4:#E07B2C; --b5:#D32F2F;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+  background:linear-gradient(160deg,#2E8C7A 0%,#5FBFAA 45%,#7B2D8E 100%);
+  background-attachment:fixed;color:var(--tinta);min-height:100vh;padding-bottom:30px}
+
+#idbar{position:sticky;top:0;z-index:60;background:#fff;border-bottom:4px solid var(--roxo);
+  padding:8px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;box-shadow:0 3px 12px rgba(0,0,0,.25)}
+#idbar .l1{font-size:16px;font-weight:800;color:var(--roxo);line-height:1.15}
+#idbar .l2{font-size:16px;font-weight:700;color:var(--verde-esc);line-height:1.15}
+#idbar .l3{font-size:16px;color:var(--cinza);line-height:1.15}
+.minibtn{border:2px solid var(--verde-esc);background:#fff;color:var(--verde-esc);border-radius:20px;
+  padding:4px 12px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit}
+.minibtn:hover{background:var(--verde);color:#fff}
+
+#statusbar{background:rgba(255,255,255,.94);padding:6px 12px;display:flex;gap:6px;flex-wrap:wrap;
+  border-bottom:2px solid var(--borda);position:sticky;top:56px;z-index:55}
+.chip{font-size:16px;font-weight:800;padding:3px 10px;border-radius:14px;background:#EEF4F2;color:var(--cinza)}
+.chip.ver{background:var(--roxo);color:#fff}
+.chip.tent{background:var(--alerta);color:#fff}
+.chip.tela{background:var(--verde-esc);color:#fff}
+.chip.sai{background:#EEF4F2;color:var(--erro)}
+
+.wrap{max-width:920px;margin:0 auto;padding:16px 14px}
+.card{background:#fff;border-radius:18px;padding:22px;box-shadow:0 8px 28px rgba(0,0,0,.20);margin-bottom:16px}
+h1{font-size:26px;color:var(--roxo);margin-bottom:6px;line-height:1.2}
+h2{font-size:19px;color:var(--verde-esc);margin-bottom:12px;line-height:1.3}
+h3{font-size:17px;margin-bottom:8px}
+p{font-size:17px;line-height:1.55;margin-bottom:10px}
+
+.regras{background:var(--creme);border-left:5px solid var(--verde);border-radius:0 11px 11px 0;padding:14px 16px;margin:16px 0}
+.regras li{margin:0 0 7px 18px;font-size:16px;line-height:1.45}
+.campo{margin-bottom:14px}
+.campo label{display:block;font-size:16px;font-weight:800;color:var(--cinza);margin-bottom:5px}
+.campo input{width:100%;padding:13px;border:2px solid var(--borda);border-radius:12px;font-size:17px;font-family:inherit}
+.turmabox{display:flex;align-items:center;gap:12px;background:var(--creme);border-radius:12px;padding:10px 12px}
+.turmabox .ano{font-weight:900;color:var(--roxo);font-size:16px}
+.turmagrid{display:flex;gap:8px;flex-wrap:wrap}
+.turmabtn{width:52px;height:44px;border:2px solid var(--borda);background:#fff;border-radius:11px;
+  font-size:18px;font-weight:900;cursor:pointer;font-family:inherit;color:var(--cinza)}
+.turmabtn.sel{background:var(--roxo);color:#fff;border-color:var(--roxo)}
+
+.btn{display:block;width:100%;padding:15px;border:none;border-radius:13px;background:var(--roxo);color:#fff;
+  font-size:17px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s;margin-top:10px}
+.btn:hover{background:var(--roxo-esc);transform:translateY(-2px)}
+.btn:disabled{background:#B9C5C2;cursor:not-allowed;transform:none}
+.btn.sec{background:var(--verde-esc)}
+
+/* ---------- trilha de marcadores, uma linha por aula ---------- */
+#trilhabar{background:rgba(255,255,255,.94);border-bottom:2px solid var(--borda);padding:8px 12px}
+.telacont{font-size:16px;font-weight:800;color:var(--roxo);margin-bottom:5px}
+.linhaaula{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-bottom:4px}
+.rotaula{font-size:16px;font-weight:800;color:var(--cinza);min-width:66px}
+.mk{width:15px;height:15px;border:2px solid var(--cinza);background:transparent;display:inline-block}
+.mk.circ{border-radius:50%}
+.mk.quad{border-radius:3px}
+.mk.los{transform:rotate(45deg);border-radius:2px}
+.mk.ok{background:var(--ok);border-color:var(--ok)}
+.mk.med{background:var(--b4);border-color:var(--b4)}
+.mk.no{background:var(--erro);border-color:var(--erro)}
+.mk.aqui{background:var(--b3);border-color:var(--b3);transform:scale(1.5);box-shadow:0 0 0 4px rgba(240,196,25,.35)}
+.mk.los.aqui{transform:rotate(45deg) scale(1.5)}
+.legtrilha{font-size:16px;color:var(--cinza);display:flex;gap:12px;flex-wrap:wrap;margin-top:5px}
+.legtrilha span{display:flex;align-items:center;gap:5px}
+.travado{background:var(--destaque);border-left:5px solid #E4C86A;border-radius:0 10px 10px 0;
+  padding:9px 12px;font-size:16px;font-weight:700;margin-top:6px}
+
+/* ---------- cards da questao ---------- */
+.cverde{background:#EAF6EC;border-left:6px solid var(--ok);border-radius:0 14px 14px 0;padding:16px 18px;margin-bottom:12px}
+.croxo{background:#F3E9F6;border-left:6px solid var(--roxo);border-radius:0 14px 14px 0;padding:16px 18px;margin-bottom:12px}
+.claranja{background:#FDF0E3;border-left:6px solid var(--b4);border-radius:0 14px 14px 0;padding:12px 16px;margin-bottom:12px;font-size:16px}
+.cazul{background:#E8F0F8;border-left:6px solid #2E5C8A;border-radius:0 14px 14px 0;padding:12px 16px;margin-bottom:12px;font-size:16px}
+.balao{background:#F0E4F5;border:2px dashed var(--roxo);border-radius:14px;padding:13px 15px;margin:10px 0;font-style:italic;font-size:17px}
+.selo{display:inline-flex;align-items:center;gap:8px;color:#fff;font-size:16px;font-weight:900;
+  padding:5px 14px;border-radius:18px;margin-bottom:10px}
+.bola{width:13px;height:13px;border-radius:50%;background:#fff;display:inline-block}
+
+/* ---------- codigo python redesenhado ---------- */
+.pycode{background:#1E2B33;border-radius:12px;padding:14px 16px;overflow-x:auto;margin:10px 0;
+  font-family:"Consolas","Courier New",monospace;font-size:16px;line-height:1.65;color:#E6EDF3}
+.pycode .kw{color:#FF7B72;font-weight:700}
+.pycode .st{color:#A5D6FF}
+.pycode .nu{color:#F0C419}
+.pycode .fn{color:#D2A8FF;font-weight:700}
+.pycode .bi{color:#79C0FF}
+.pyleg{font-size:16px;color:var(--cinza);margin-top:4px}
+
+/* ---------- pastilhas e glossario ---------- */
+.gchip{display:inline-block;background:var(--destaque);border:1px solid #E4C86A;border-radius:16px;
+  padding:4px 12px;margin:4px 5px 0 0;font-size:16px;font-weight:700;cursor:pointer}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:90;padding:20px;overflow-y:auto}
+.modal.abre{display:block}
+.caixa{background:#fff;max-width:560px;margin:40px auto;border-radius:16px;padding:22px}
+.fechar{color:#fff;font-size:30px;position:absolute;top:14px;right:22px;cursor:pointer;font-weight:800}
+
+/* ---------- alternativas ---------- */
+.alt{display:block;width:100%;text-align:left;background:#fff;border:2.5px solid var(--borda);border-radius:14px;
+  padding:14px 16px;margin-bottom:9px;font-size:17px;line-height:1.45;cursor:pointer;font-family:inherit}
+.alt:hover{border-color:var(--roxo);background:var(--creme)}
+.alt .let{display:inline-block;font-weight:900;color:var(--roxo);min-width:26px}
+.alt.certo{border-color:var(--ok);background:#EAF6EC}
+.alt.errado{border-color:var(--erro);background:#FDECEF}
+.alt:disabled{cursor:default}
+.veredito{font-size:17px;font-weight:800;padding:12px 15px;border-radius:12px;margin:10px 0}
+.veredito.ok{background:#EAF6EC;color:var(--ok)}
+.veredito.no{background:#FDECEF;color:var(--erro)}
+
+/* ---------- ajuda BIT ---------- */
+.bit{background:#E8F0F8;border:2px solid #2E5C8A;border-radius:14px;padding:14px 16px;margin:10px 0}
+.bitcab{font-size:16px;font-weight:900;color:#2E5C8A;margin-bottom:8px}
+.bitfat{font-size:17px;line-height:1.5;margin-bottom:8px}
+
+/* ---------- convivencia ---------- */
+.conviv{background:var(--convbg);border-left:6px solid var(--conv);border-radius:0 14px 14px 0;padding:16px 18px}
+.acordo{display:flex;gap:10px;align-items:flex-start;background:#fff;border:2px solid var(--conv);
+  border-radius:12px;padding:12px 14px;margin-top:12px;font-size:16px;font-weight:700}
+.acordo input{width:20px;height:20px;accent-color:var(--conv);flex:0 0 auto;margin-top:2px}
+
+/* ---------- placar ---------- */
+.pontos{display:flex;gap:10px;margin:14px 0;flex-wrap:wrap}
+.pt{flex:1;min-width:130px;border-radius:14px;padding:12px;text-align:center;color:#fff}
+.pt .n{font-size:26px;font-weight:900}
+.pt .r{font-size:16px;font-weight:800;letter-spacing:.5px}
+.pt.a{background:var(--ok)} .pt.b{background:var(--b4)} .pt.c{background:var(--roxo)}
+.faixa{font-size:19px;font-weight:900;margin:10px 0}
+.gat{display:flex;align-items:center;gap:10px;border-radius:11px;padding:10px 14px;margin-bottom:6px;
+  font-size:16px;font-weight:800;color:#fff}
+.gat.on{background:var(--ok)} .gat.off{background:#98A6AC}
+.falaprof{background:var(--destaque);border-left:6px solid #E4C86A;border-radius:0 12px 12px 0;
+  padding:12px 15px;margin:12px 0;text-align:left}
+.falaprof .quem{display:block;font-size:16px;font-weight:900;color:var(--roxo);margin-bottom:4px}
+.premlinha{display:flex;align-items:center;gap:12px;color:#fff;border-radius:8px;padding:8px 14px;margin-bottom:4px;font-size:16px}
+.tabela{width:100%;border-collapse:collapse;margin-top:12px;font-size:16px}
+.tabela th,.tabela td{border:1px solid var(--borda);padding:9px 11px;text-align:left}
+.tabela th{background:var(--creme);font-weight:900}
+#avisoTC{display:none;position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:95;padding:24px}
+#avisoTC.abre{display:block}
+#avisoTC .cx{background:#fff;max-width:480px;margin:70px auto;border-radius:16px;padding:24px;text-align:center}
+#avisoTC .cont{font-size:40px;font-weight:900;color:var(--erro);margin:12px 0}
+#avisoTC .cont small{display:block;font-size:16px;color:var(--cinza);font-weight:700}
+.rodapever{text-align:center;font-size:16px;color:#fff;opacity:.85;padding:6px}
+</style>
+</head>
+<body>
+
+<div id="idbar">
+  <div>
+    <div class="l1">Revisão da 1ª AAIM · 8º ano · 3º bimestre</div>
+    <div class="l2">Algoritmos, listas e repetição com Python</div>
+    <div class="l3">E.E. Dr. Benedicto Martins Barbosa · professor Marcos</div>
+  </div>
+  <button class="minibtn" id="btnTC" onclick="pedirTelaCheia()">⛶ Tela cheia</button>
+</div>
+
+<div id="statusbar">
+  <span class="chip ver">V.01.00</span>
+  <span class="chip" id="stNome">Estudante: —</span>
+  <span class="chip" id="stTurma">Turma: —</span>
+  <span class="chip tent" id="stTent">Tentativa 1</span>
+  <span class="chip tela" id="stTela">Tela 1</span>
+  <span class="chip" id="stPerg">antes de começar</span>
+  <span class="chip sai" id="stSaidas">⛶ Saídas: 0</span>
+</div>
+
+<div id="trilhabar" style="display:none"></div>
+
+<div id="avisoTC"><div class="cx">
+  <h2>Você saiu da tela cheia</h2>
+  <p>Esta atividade deve ser feita em tela cheia. A saída foi registrada e aparece no seu relatório final.</p>
+  <div class="cont" id="contTC">1<small>saída(s) registrada(s)</small></div>
+  <button class="btn" onclick="voltarTelaCheia()">Voltar para a tela cheia</button>
+  <button class="btn sec" onclick="ignorarTelaCheia()">Continuar sem tela cheia</button>
+</div></div>
+
+<div class="wrap" id="palco"></div>
+<div class="rodapever">V.01.00 · revisão da 1ª AAIM · 8º ano</div>
+
+<div class="modal" id="modalG" onclick="fecharModal()">
+  <span class="fechar">✕</span>
+  <div class="caixa" id="caixaG" onclick="event.stopPropagation()"></div>
+</div>
+
+<script>
+/* ==================== BANCO ==================== */
+/* ================= BANCO 8º ANO · AAIM 01 · 3º BIMESTRE =================
+   15 questoes oficiais x 3 degraus (B3 ENTENDER · B4 TESTAR · B5 CONCLUIR) = 45
+   Ordem reorganizada pelo escopo das aulas. B5 reproduz o card oficial da AAIM.
+======================================================================== */
+
+const AULAS = [
+  {id:"A01", nome:"Aula 1 · Tipos de dados e etapas do algoritmo", cor:"#2E5C8A"},
+  {id:"A02", nome:"Aula 2 · Condicionais",                        cor:"#4A8C3F"},
+  {id:"A03", nome:"Aula 3 · Listas",                               cor:"#E07B2C"},
+  {id:"A04", nome:"Aula 4 · Repetição",                            cor:"#7B2D8E"}
+];
+
+const BANCO = [
+
+/* ============================ AULA 1 ============================ */
+{
+ of:1, aula:"A01", persona:"Lu, da loja de jogos",
+ titulo:"O tipo do valor digitado",
+ contexto:"Uma estudante está desenvolvendo um programa para registrar pedidos em uma loja de jogos. Para saber quantas unidades de um jogo a pessoa deseja comprar, ela escreveu o trecho abaixo. Antes de usar a variável quantidade em cálculos, ela percebeu que precisará converter esse valor para outro tipo de dado.",
+ codigo:'quantidade = input("Quantos jogos você deseja comprar?")',
+ colega:"Um colega chutou:",
+ fala:"Como a pergunta é sobre quantidade, o valor já chega como número inteiro.",
+ glossario:[
+  {t:"input()", d:"Comando que recebe o que a pessoa digita. Entrega sempre texto, nunca número."},
+  {t:"str", d:"Tipo de dado texto. Não serve para cálculo direto."},
+  {t:"int", d:"Tipo de dado número inteiro. Só aparece depois de uma conversão."},
+  {t:"float", d:"Número com casas decimais. Não é o tipo que o input devolve."},
+  {t:"converter", d:"Trocar o tipo do dado, como de texto para número. Não muda o que a pessoa digitou."}
+ ],
+ b3:{p:"O que o <b>input()</b> devolve para a variável, em qualquer situação?",
+     ok:["Texto, mesmo quando a pessoa digita um número.",
+         "Um valor do tipo str, que precisa ser convertido para virar número."],
+     no:["Um número inteiro, quando a pergunta é sobre quantidade.",
+         "Um valor verdadeiro ou falso, conforme a confirmação da pessoa."]},
+ b4:{p:"O colega disse que o valor já chega como número inteiro. Como derrubar essa fala?",
+     ok:["Se já fosse número, não haveria motivo para converter antes do cálculo.",
+         "O input entrega texto sempre, independente do que a pergunta pede."],
+     no:["Ele está certo: o input olha a pergunta e escolhe o tipo.",
+         "Ele está certo, porque quantidade sempre vira int."]},
+ b5:{p:"Isso acontece porque, nesse caso, o valor armazenado inicialmente na variável quantidade é do tipo",
+     alts:["int, pois a resposta representa uma quantidade.",
+           "str, pois a informação é recebida como texto.",
+           "bool, pois o programa espera uma confirmação do usuário.",
+           "float, pois o usuário pode digitar números com casas decimais."],
+     cert:1}
+},
+{
+ of:2, aula:"A01", persona:"Equipe da excursão",
+ titulo:"Entrada, processamento e saída",
+ contexto:"Uma escola está desenvolvendo um programa para calcular o valor da contribuição de cada estudante em uma excursão. O programa recebe a quantidade de participantes e o valor total da viagem para informar o valor individual.",
+ codigo:"",
+ colega:"Um colega opinou:",
+ fala:"O processamento é o momento em que o programa mostra o resultado na tela.",
+ glossario:[
+  {t:"entrada", d:"Momento em que o programa recebe dados. Não é o momento do cálculo."},
+  {t:"processamento", d:"Momento em que o programa faz a conta ou trata os dados. Não é a exibição."},
+  {t:"saída", d:"Momento em que o programa mostra o resultado. Não é o cálculo em si."},
+  {t:"algoritmo", d:"Sequência de passos para resolver um problema. Não é a linguagem usada."},
+  {t:"valor individual", d:"Resultado da divisão do total pelo número de participantes. É o produto do processamento."}
+ ],
+ b3:{p:"Qual das três etapas é o <b>processamento</b> neste programa?",
+     ok:["O cálculo do valor que cada participante deverá pagar.",
+         "A divisão do valor total pela quantidade de participantes."],
+     no:["A solicitação da quantidade de participantes.",
+         "A exibição do resultado do cálculo na tela."]},
+ b4:{p:"O colega colocou o processamento na hora de mostrar na tela. O que derruba isso?",
+     ok:["Mostrar na tela é saída: nada é calculado nesse momento.",
+         "Se o processamento fosse a exibição, o valor individual nunca seria calculado."],
+     no:["Ele acertou: processar e exibir são a mesma etapa.",
+         "Ele acertou, porque o print faz a conta antes de mostrar."]},
+ b5:{p:"Nesse programa, a etapa de processamento corresponde ao momento em que o algoritmo",
+     alts:["solicita ao usuário a quantidade de participantes da excursão.",
+           "realiza o cálculo do valor que cada participante deverá pagar.",
+           "recebe o valor total da excursão informado pelo usuário.",
+           "exibe o resultado do cálculo na tela."],
+     cert:1}
+},
+
+/* ============================ AULA 2 ============================ */
+{
+ of:3, aula:"A02", persona:"Marcos, do estacionamento",
+ titulo:"A vaga que não existe",
+ contexto:"Durante o desenvolvimento de um aplicativo de estacionamento, Marcos escreveu o código abaixo.",
+ codigo:'vagas = 0\nif vagas > 0:\n    print("Há vagas disponíveis")',
+ colega:"Ao analisar o algoritmo, um colega afirmou:",
+ fala:"Como a variável vagas possui o valor 0, o algoritmo exibirá a mensagem Há vagas disponíveis.",
+ glossario:[
+  {t:"if", d:"Só executa o que está dentro quando o teste dá verdadeiro. Não executa sempre."},
+  {t:">", d:"Operador maior que. Zero não é maior que zero."},
+  {t:"vagas", d:"Variável que guarda o número de vagas livres. Aqui vale 0."},
+  {t:"print()", d:"Mostra a mensagem na tela. Só roda se estiver dentro de um caminho executado."},
+  {t:"condição falsa", d:"Teste que deu falso, então o bloco do if é pulado. Não gera erro."}
+ ],
+ b3:{p:"O teste <b>vagas &gt; 0</b> dá verdadeiro ou falso quando vagas vale 0?",
+     ok:["Falso, porque zero não é maior que zero.",
+         "Falso: o if só entraria com pelo menos uma vaga."],
+     no:["Verdadeiro, porque zero é um número válido.",
+         "Verdadeiro, porque a variável existe no programa."]},
+ b4:{p:"O colega disse que a mensagem aparece. Como testar essa fala?",
+     ok:["Com o teste falso, o print é pulado e nada é exibido.",
+         "Só haveria mensagem se vagas fosse 1 ou mais."],
+     no:["Ele acertou: tudo que está no código sempre é executado.",
+         "Ele acertou, porque não existe else para impedir."]},
+ b5:{p:"Essa afirmação é verdadeira ou falsa?", alts:["Verdadeira.","Falsa."], cert:1}
+},
+{
+ of:13, aula:"A02", persona:"João, da prova esportiva",
+ titulo:"A idade do atleta",
+ contexto:"João criou o algoritmo abaixo para verificar se um atleta pode participar de uma prova.",
+ codigo:'idade = 15\nif idade >= 16:\n    print("Participação autorizada.")\nelse:\n    print("Participação não autorizada.")',
+ colega:"Ao analisar esse algoritmo, um colega afirmou:",
+ fala:"Como a idade informada é 15, o algoritmo exibirá a mensagem Participação não autorizada.",
+ glossario:[
+  {t:">=", d:"Maior ou igual. Aceita o próprio valor da comparação."},
+  {t:"if", d:"Caminho executado quando o teste dá verdadeiro. Aqui o teste dá falso."},
+  {t:"else", d:"Caminho executado quando o teste dá falso. É o que roda neste caso."},
+  {t:"idade", d:"Variável que guarda 15. Não muda dentro do if."},
+  {t:"dois caminhos", d:"O if/else sempre executa um dos dois, nunca os dois juntos."}
+ ],
+ b3:{p:"Com <b>idade = 15</b>, qual caminho o programa executa?",
+     ok:["O else, porque 15 não é maior nem igual a 16.",
+         "O segundo caminho: o teste do if deu falso."],
+     no:["O if, porque 15 é um número próximo de 16.",
+         "Os dois caminhos, um depois do outro."]},
+ b4:{p:"A fala do colega bate com o que o código faz?",
+     ok:["Sim: com o if falso, sai a mensagem do else.",
+         "Sim: a mensagem exibida é mesmo a de participação não autorizada."],
+     no:["Não, porque o print do if sempre roda primeiro.",
+         "Não, porque 15 é maior ou igual a 16."]},
+ b5:{p:"Essa afirmação é verdadeira ou falsa?", alts:["Verdadeira.","Falsa."], cert:0}
+},
+{
+ of:4, aula:"A02", persona:"Lívia, do programa de pontos",
+ titulo:"Duas ações possíveis",
+ contexto:"Lívia está criando um programa que verifica se um cliente pode trocar seus pontos por um prêmio. Se a pontuação for suficiente, o programa informa que a troca pode ser realizada. Caso contrário, informa que ainda são necessários mais pontos.",
+ codigo:"",
+ colega:"Ao observar o programa, um colega afirmou:",
+ fala:"Nesse caso, utilizar uma estrutura if...else é adequado porque o algoritmo precisa decidir entre duas ações possíveis.",
+ glossario:[
+  {t:"if...else", d:"Estrutura que escolhe entre dois caminhos. Não repete comandos."},
+  {t:"decidir", d:"Escolher um caminho conforme um teste. Não é a mesma coisa que repetir."},
+  {t:"caso contrário", d:"Expressão que indica o else. Marca o segundo caminho."},
+  {t:"estrutura de controle", d:"Comando que organiza o caminho do programa. Pode ser de decisão ou de repetição."},
+  {t:"duas ações", d:"Dois resultados possíveis, um para cada saída do teste. É o cenário típico do if/else."}
+ ],
+ b3:{p:"Quantos caminhos o programa da Lívia precisa ter?",
+     ok:["Dois: um quando a troca é possível e outro quando não é.",
+         "Dois resultados diferentes, um para cada saída do teste."],
+     no:["Um só, que serve para qualquer pontuação.",
+         "Quatro, um para cada faixa de pontos."]},
+ b4:{p:"O colega indicou if...else. A escolha se sustenta?",
+     ok:["Sim: são exatamente duas ações, uma para cada resultado do teste.",
+         "Sim: o caso contrário descrito no enunciado é o else."],
+     no:["Não: seriam necessárias duas repetições.",
+         "Não: o if...else só serve quando existe um caminho só."]},
+ b5:{p:"Essa afirmação é verdadeira ou falsa?", alts:["Verdadeira.","Falsa."], cert:0}
+},
+
+/* ============================ AULA 3 ============================ */
+{
+ of:5, aula:"A03", persona:"Fernanda, do torneio escolar",
+ titulo:"Uma variável para cada modalidade",
+ contexto:"Fernanda está desenvolvendo um aplicativo para registrar as modalidades esportivas oferecidas em um torneio escolar. Inicialmente, ela criou uma variável para cada modalidade. Ao perceber que a quantidade de opções poderia aumentar ao longo do ano, decidiu armazená-las em uma lista.",
+ codigo:"",
+ colega:"Um colega opinou:",
+ fala:"A lista serve para organizar as modalidades por categoria automaticamente.",
+ glossario:[
+  {t:"lista", d:"Reúne vários valores sob um nome só. Não separa por categoria sozinha."},
+  {t:"variável", d:"Guarda um valor por vez. Precisaria de uma nova a cada modalidade."},
+  {t:"estrutura", d:"Forma de organizar dados no programa. A lista é uma delas."},
+  {t:"crescer", d:"Ganhar mais itens durante o programa. A lista aceita isso."},
+  {t:"automático", d:"O programa faz sozinho. Ordenar não acontece sozinho em uma lista."}
+ ],
+ b3:{p:"Qual é a vantagem principal de trocar várias variáveis por uma lista?",
+     ok:["Reunir várias modalidades em uma única estrutura.",
+         "Guardar tudo sob um nome só, em vez de criar uma variável por modalidade."],
+     no:["Organizar automaticamente as modalidades por categoria.",
+         "Limitar a quantidade de modalidades registradas."]},
+ b4:{p:"O colega disse que a lista organiza por categoria sozinha. O que derruba isso?",
+     ok:["A lista guarda na ordem em que os itens entram, sem classificar nada.",
+         "Organizar por categoria exigiria um comando escrito para isso."],
+     no:["Ele acertou: toda lista se organiza sozinha.",
+         "Ele acertou, porque a lista sempre coloca em ordem alfabética."]},
+ b5:{p:"Nesse caso, qual é a vantagem de armazenar as modalidades em uma lista, em vez de usar uma variável para cada uma?",
+     alts:["Exibir todas as modalidades sem usar comandos.",
+           "Reunir várias modalidades em uma única estrutura.",
+           "Organizar automaticamente as modalidades por categoria.",
+           "Limitar a quantidade de modalidades que podem ser registradas."],
+     cert:1}
+},
+{
+ of:6, aula:"A03", persona:"Bruna, do festival de cinema",
+ titulo:"Incluir um filme no fim da lista",
+ contexto:"Bruna está desenvolvendo um aplicativo para organizar a programação de um festival de cinema. A lista abaixo armazena os filmes que serão exibidos. Antes da divulgação, foi necessário incluir o filme Animação ao final da lista.",
+ codigo:'filmes = ["Aventura", "Mistério", "Comédia"]',
+ colega:"Um colega arriscou:",
+ fala:"Para incluir o filme no fim, basta usar filmes.pop().",
+ glossario:[
+  {t:"append()", d:"Adiciona um item no final da lista. Não remove nada."},
+  {t:"remove()", d:"Tira da lista o item indicado. Não adiciona."},
+  {t:"pop()", d:"Tira o último item da lista. Não coloca item novo."},
+  {t:"filmes[0]", d:"Acessa o primeiro item da lista. Não altera o tamanho dela."},
+  {t:"final da lista", d:"A última posição. É onde o append coloca o item novo."}
+ ],
+ b3:{p:"Qual comando acrescenta um item no <b>final</b> de uma lista?",
+     ok:["append(), que adiciona no fim da lista.",
+         "O comando de adicionar: filmes.append(\"Animação\")."],
+     no:["pop(), que trabalha com o último item.",
+         "remove(), que trata do item indicado."]},
+ b4:{p:"O colega indicou pop() para incluir. Como derrubar?",
+     ok:["O pop tira um item, não coloca: a lista ficaria menor.",
+         "Depois do pop, o filme Comédia sairia e Animação continuaria de fora."],
+     no:["Ele acertou: pop e append fazem a mesma coisa.",
+         "Ele acertou, porque pop significa colocar no fim."]},
+ b5:{p:"Para isso, qual comando Bruna deve usar?",
+     alts:['filmes.append("Animação")','filmes.remove("Animação")','filmes.pop()','filmes[0]'],
+     cert:0}
+},
+{
+ of:12, aula:"A03", persona:"Mariana, da biblioteca",
+ titulo:"Uma lista por livro?",
+ contexto:"Mariana está desenvolvendo um aplicativo para registrar os livros disponíveis em uma biblioteca. Para organizar os títulos, ela decidiu armazená-los em uma lista.",
+ codigo:"",
+ colega:"Ao analisar essa solução, um colega afirmou:",
+ fala:"Para registrar vários livros, seria necessário criar uma lista diferente para cada título.",
+ glossario:[
+  {t:"lista", d:"Guarda vários títulos de uma vez. Não precisa de uma lista por item."},
+  {t:"título", d:"Cada nome de livro guardado. É um item dentro da lista."},
+  {t:"item", d:"Um valor dentro da lista. Ocupa uma posição."},
+  {t:"vários valores", d:"O que a lista foi feita para guardar. Não exige repetir a estrutura."},
+  {t:"organizar", d:"Reunir os títulos em um lugar só. É o motivo de usar lista aqui."}
+ ],
+ b3:{p:"Quantos títulos cabem dentro de uma mesma lista?",
+     ok:["Vários: é exatamente para isso que a lista existe.",
+         "Todos os títulos da biblioteca, cada um em uma posição."],
+     no:["Um só por lista, por isso precisaria de várias.",
+         "No máximo três, que é o tamanho padrão."]},
+ b4:{p:"O colega quer uma lista por título. O que derruba a ideia?",
+     ok:["Se cada título tivesse a sua lista, a lista não estaria organizando nada.",
+         "Uma lista só já guarda todos os títulos."],
+     no:["Nada: cada item realmente exige a sua própria lista.",
+         "Nada: listas só aceitam um valor por vez."]},
+ b5:{p:"Essa afirmação é verdadeira ou falsa?", alts:["Verdadeira.","Falsa."], cert:1}
+},
+{
+ of:14, aula:"A03", persona:"Bianca, da estufa",
+ titulo:"As temperaturas dos sensores",
+ contexto:"Bianca está desenvolvendo um programa para registrar as temperaturas medidas por sensores em uma estufa ao longo do dia. Em vez de criar uma variável para cada medição, ela decidiu armazenar todos os valores em uma lista.",
+ codigo:"",
+ colega:"Ao analisar essa decisão, uma colega afirmou:",
+ fala:"Utilizar uma lista é uma forma adequada de representar um conjunto de informações em um algoritmo.",
+ glossario:[
+  {t:"conjunto de informações", d:"Vários dados do mesmo tipo, reunidos. É o caso das temperaturas."},
+  {t:"lista", d:"Estrutura indicada para guardar um conjunto de valores. Não serve só para texto."},
+  {t:"medição", d:"Cada temperatura registrada. Vira um item da lista."},
+  {t:"variável por medição", d:"Criar um nome novo a cada leitura. Fica difícil de manter."},
+  {t:"adequada", d:"Que resolve bem o problema. Não quer dizer única possível."}
+ ],
+ b3:{p:"Por que a lista cai bem no caso das temperaturas?",
+     ok:["Porque reúne várias medições do mesmo tipo em uma estrutura só.",
+         "Porque as temperaturas formam um conjunto de informações relacionadas."],
+     no:["Porque a lista mede a temperatura sozinha.",
+         "Porque a lista impede que novos valores sejam guardados."]},
+ b4:{p:"A afirmação da colega se confirma?",
+     ok:["Sim: representar um conjunto de informações é justamente o papel da lista.",
+         "Sim: sem a lista seria uma variável por medição, o que não se sustenta."],
+     no:["Não, porque listas só guardam palavras.",
+         "Não, porque cada sensor precisa da sua própria variável."]},
+ b5:{p:"Essa afirmação é verdadeira ou falsa?", alts:["Verdadeira.","Falsa."], cert:0}
+},
+
+/* ============================ AULA 4 ============================ */
+{
+ of:7, aula:"A04", persona:"Henrique, das vendas",
+ titulo:"O laço que percorre a lista",
+ contexto:"Henrique criou um programa que percorre uma lista de vendas utilizando um laço de repetição para calcular o total arrecadado.",
+ codigo:"",
+ colega:"Ao analisar o programa, Henrique afirmou:",
+ fala:"Utilizar um laço de repetição é uma forma de automatizar o processamento da lista, pois o código continua funcionando mesmo quando a quantidade de elementos muda.",
+ glossario:[
+  {t:"laço de repetição", d:"Comando que repete um bloco várias vezes. Não precisa saber o total antes."},
+  {t:"percorrer", d:"Passar por todos os itens da lista, um a um. Não é acessar só o primeiro."},
+  {t:"automatizar", d:"Fazer o programa repetir sozinho. Evita escrever a mesma linha várias vezes."},
+  {t:"elemento", d:"Cada item guardado na lista. Pode aumentar ou diminuir."},
+  {t:"total arrecadado", d:"Soma de todos os elementos. Resultado do laço."}
+ ],
+ b3:{p:"O que acontece com o laço quando a lista ganha mais itens?",
+     ok:["Ele continua funcionando, percorrendo os itens que existirem.",
+         "Nada precisa ser reescrito: o laço se ajusta ao tamanho da lista."],
+     no:["O laço para de funcionar e precisa ser reescrito.",
+         "O laço passa a somar sempre a mesma quantidade de itens."]},
+ b4:{p:"A fala do Henrique se sustenta?",
+     ok:["Sim: é justamente essa independência do tamanho que o laço traz.",
+         "Sim: o mesmo código atende três vendas ou trinta."],
+     no:["Não: cada item novo exige uma linha nova de soma.",
+         "Não: laços só funcionam com quantidade fixa."]},
+ b5:{p:"Essa afirmação é verdadeira ou falsa?", alts:["Verdadeira.","Falsa."], cert:0}
+},
+{
+ of:10, aula:"A04", persona:"Sofia, do festival de música",
+ titulo:"Um comando para cada elemento?",
+ contexto:"Sofia está desenvolvendo um programa para exibir a programação de um festival de música. Os nomes das apresentações estão armazenados em uma lista, e o programa utiliza um laço para percorrer seus elementos.",
+ codigo:"",
+ colega:"Ao analisar essa solução, um colega afirmou:",
+ fala:"Ao utilizar um laço para percorrer uma lista, é necessário criar um comando diferente para acessar cada elemento.",
+ glossario:[
+  {t:"laço", d:"Repete o mesmo comando para cada item. Não exige um comando por item."},
+  {t:"acessar", d:"Pegar o valor guardado em uma posição. O laço faz isso repetidamente."},
+  {t:"elemento", d:"Cada nome dentro da lista. São vários, e o laço cuida de todos."},
+  {t:"repetição", d:"Executar o mesmo bloco mais de uma vez. É a base do laço."},
+  {t:"comando diferente", d:"Escrever uma linha nova para cada caso. É o oposto do que o laço faz."}
+ ],
+ b3:{p:"Quantas linhas de acesso o laço precisa para percorrer a lista inteira?",
+     ok:["Uma só, repetida pelo laço para cada elemento.",
+         "O mesmo comando serve para todos os itens."],
+     no:["Uma para cada elemento da lista.",
+         "Duas: uma para o primeiro e outra para o último."]},
+ b4:{p:"O colega disse que é preciso um comando por elemento. Como derrubar?",
+     ok:["Se fosse assim, o laço não estaria economizando nada.",
+         "O laço existe justamente para repetir o mesmo comando sozinho."],
+     no:["Ele acertou: cada elemento tem o seu próprio comando.",
+         "Ele acertou, porque laços não repetem comandos."]},
+ b5:{p:"Essa afirmação é verdadeira ou falsa?", alts:["Verdadeira.","Falsa."], cert:1}
+},
+{
+ of:9, aula:"A04", persona:"Pedro, do basquete",
+ titulo:"A pontuação que pode crescer",
+ contexto:"Pedro está desenvolvendo um programa para calcular a pontuação total de uma equipe de basquete durante um campeonato. As pontuações de cada partida estão em uma lista, e a quantidade de partidas pode variar ao longo do campeonato. Ele percebeu que precisava de uma solução que continuasse funcionando mesmo com novas pontuações.",
+ codigo:"",
+ colega:"Um colega sugeriu:",
+ fala:"Basta escrever uma nova operação de soma toda vez que uma pontuação for adicionada à lista.",
+ glossario:[
+  {t:"estrutura de repetição", d:"Percorre a lista inteira, seja qual for o tamanho. Não precisa ser reescrita."},
+  {t:"somar", d:"Acumular os valores um a um. Dentro do laço acontece a cada volta."},
+  {t:"variar", d:"Mudar de tamanho durante o campeonato. É o que a lista de Pedro faz."},
+  {t:"manutenção", d:"Ter que mexer no código de novo. É o que a repetição evita aqui."},
+  {t:"percorrer", d:"Visitar todos os elementos. É o que resolve o problema de Pedro."}
+ ],
+ b3:{p:"Que solução continua funcionando quando a lista cresce?",
+     ok:["Uma estrutura de repetição que percorre todos os elementos e soma.",
+         "Um laço que passa por toda a lista, seja qual for o tamanho."],
+     no:["Uma variável diferente para cada pontuação obtida.",
+         "Exibir a lista completa na tela antes de somar."]},
+ b4:{p:"O colega quer reescrever a soma a cada nova pontuação. O que derruba?",
+     ok:["Isso exigiria mexer no código depois de cada partida.",
+         "A solução precisa funcionar sozinha, e reescrever não é funcionar sozinho."],
+     no:["Nada: reescrever é a única forma de somar listas.",
+         "Nada: laços não conseguem somar valores."]},
+ b5:{p:"Nesse caso, qual solução atende à necessidade de Pedro?",
+     alts:["Utilizar uma estrutura de repetição para percorrer todos os elementos da lista e somar as pontuações.",
+           "Escrever uma nova operação de soma sempre que uma pontuação for adicionada à lista.",
+           "Criar uma variável diferente para armazenar cada pontuação obtida pela equipe.",
+           "Exibir a lista completa na tela antes de realizar a soma das pontuações."],
+     cert:0}
+},
+{
+ of:8, aula:"A04", persona:"Marina, do autoatendimento",
+ titulo:"O menu que repete até sair",
+ contexto:"Marina está criando um programa para um terminal de autoatendimento. O sistema deve continuar exibindo o menu de opções até que o cliente escolha a opção Sair.",
+ codigo:"",
+ colega:"Um colega sugeriu:",
+ fala:"O certo aqui é usar for, porque um menu deve ser exibido um número fixo de vezes.",
+ glossario:[
+  {t:"while", d:"Repete enquanto a condição for verdadeira. Não precisa saber o total de voltas."},
+  {t:"for", d:"Repete uma quantidade conhecida de vezes. Não serve quando o fim depende da pessoa."},
+  {t:"if...else", d:"Escolhe entre dois caminhos. Não repete comandos sozinho."},
+  {t:"condição de parada", d:"O que faz a repetição terminar. Aqui é a escolha da opção Sair."},
+  {t:"quantidade desconhecida", d:"Não dá para saber antes quantas voltas serão. É o caso deste menu."}
+ ],
+ b3:{p:"O programa sabe, antes de começar, quantas vezes o menu vai aparecer?",
+     ok:["Não: depende de quando o cliente escolher Sair.",
+         "Não, e por isso a repetição precisa depender de uma condição."],
+     no:["Sim: o menu sempre aparece um número fixo de vezes.",
+         "Sim: o número de voltas é definido pelo tamanho do menu."]},
+ b4:{p:"O colega indicou for. Como derrubar essa escolha?",
+     ok:["O for precisa de um número de voltas conhecido, e aqui não existe.",
+         "Quem decide o fim é o cliente, então a repetição depende de uma condição."],
+     no:["Ele acertou: for e while funcionam igual em qualquer caso.",
+         "Ele acertou, porque menus sempre têm quantidade fixa."]},
+ b5:{p:"Para que isso ocorra, qual estrutura de controle é indicada?",
+     alts:["Variável, porque ela controla quando o programa termina.",
+           "while, porque a repetição depende da escolha feita pelo cliente.",
+           "for, porque um menu deve ser exibido um número fixo de vezes.",
+           "if...else, porque estruturas condicionais repetem comandos automaticamente."],
+     cert:1}
+},
+{
+ of:11, aula:"A04", persona:"Andreia, do campeonato",
+ titulo:"O total que o laço soma",
+ contexto:"Andreia escreveu um programa para calcular a pontuação total de uma equipe em um campeonato. Observe o código criado por ela.",
+ codigo:"pontuacoes = [8, 6, 10, 4]\ntotal = 0\nfor i in range(len(pontuacoes)):\n    total = total + pontuacoes[i]\nprint(total)",
+ colega:"Um colega chutou:",
+ fala:"Esse programa mostra a lista inteira na tela, do jeito que ela foi escrita.",
+ glossario:[
+  {t:"total = 0", d:"Começa o acumulador em zero. Sem isso não haveria onde somar."},
+  {t:"len()", d:"Devolve quantos itens a lista tem. Aqui devolve 4."},
+  {t:"range()", d:"Gera as posições de 0 até o último índice. Não gera os valores da lista."},
+  {t:"pontuacoes[i]", d:"Pega o valor guardado na posição i. Muda a cada volta do laço."},
+  {t:"print(total)", d:"Mostra só o acumulador no fim. Não mostra a lista."}
+ ],
+ b3:{p:"O que a variável <b>total</b> guarda depois que o laço termina?",
+     ok:["A soma de todos os valores da lista.",
+         "8 + 6 + 10 + 4, ou seja, o total acumulado."],
+     no:["O último valor da lista, que é 4.",
+         "A lista inteira, do jeito que foi escrita."]},
+ b4:{p:"O colega disse que a tela mostra a lista inteira. O que derruba?",
+     ok:["O print recebe total, não pontuacoes.",
+         "Só o acumulador é exibido, e ele é um número único."],
+     no:["Ele acertou: o print sempre mostra a lista de origem.",
+         "Ele acertou, porque total guarda a lista."]},
+ b5:{p:"Ao executar esse algoritmo, qual valor será exibido na tela?",
+     alts:["4","14","28","[8, 6, 10, 4]"],
+     cert:2}
+},
+{
+ of:15, aula:"A04", persona:"Equipe do cadastro de visitantes", disc:true,
+ titulo:"O cadastro que termina com fim",
+ contexto:"Uma equipe está desenvolvendo um sistema para registrar a entrada de visitantes em um evento. O programa deve continuar solicitando novos nomes até que a pessoa responsável digite fim, encerrando o cadastro.",
+ codigo:"",
+ colega:"Atenção: no Alura esta questão é DISCURSIVA. Aqui ela aparece em alternativas só para você organizar o raciocínio antes de escrever com suas palavras.",
+ fala:"Dá para usar for, porque sempre entra a mesma quantidade de visitantes em um evento.",
+ glossario:[
+  {t:"while", d:"Repete enquanto a condição for verdadeira. Serve quando o fim não é conhecido."},
+  {t:"condição de parada", d:"O que encerra o laço. Aqui é a palavra fim digitada."},
+  {t:"quantidade desconhecida", d:"Não se sabe antes quantos visitantes chegam. É o ponto central da questão."},
+  {t:"cadastro", d:"Registro de cada nome digitado. Acontece dentro do laço."},
+  {t:"for", d:"Repete uma quantidade conhecida de vezes. Não atende este caso."}
+ ],
+ b3:{p:"Por que a quantidade de voltas desse laço não pode ser definida antes?",
+     ok:["Porque ninguém sabe quantos visitantes vão chegar ao evento.",
+         "Porque o fim depende de alguém digitar a palavra fim."],
+     no:["Porque o programa sempre registra o mesmo número de nomes.",
+         "Porque o cadastro só aceita um visitante por vez."]},
+ b4:{p:"O colega indicou for. Como derrubar?",
+     ok:["O for exige saber o número de voltas, e esse número não existe aqui.",
+         "A quantidade de visitantes muda a cada evento, então a repetição precisa de condição."],
+     no:["Nada: a quantidade de visitantes é sempre a mesma.",
+         "Nada: o for também para quando alguém digita fim."]},
+ b5:{p:"Por que o laço while é uma técnica adequada para resolver esse problema de cadastro?",
+     alts:["Porque o cadastro precisa continuar enquanto a pessoa não digitar fim, e não é possível saber antes quantos nomes serão registrados.",
+           "Porque o número de visitantes é sempre conhecido antes de o evento começar.",
+           "Porque o while organiza os nomes em ordem alfabética durante o cadastro.",
+           "Porque toda estrutura condicional repete comandos automaticamente."],
+     cert:0}
+}
+];
+
+
+const PREMIOS=[
+ {min:10,max:10,rot:"NOTA MÁXIMA",doce:"🍫 BomBom",cor:"#4A1F0F"},
+ {min:9.5,max:9.9,rot:"EXCELENTE",doce:"🍭 Pirulito Megalito",cor:"#6B2D12"},
+ {min:9,max:9.4,rot:"ÓTIMO",doce:"🍫🍫 2 Bis",cor:"#8A3A16"},
+ {min:8.5,max:8.9,rot:"MUITO BOM",doce:"🍭 Pirulito 7Belo",cor:"#1F4E79"},
+ {min:8,max:8.4,rot:"BOM",doce:"🍭 Pirulito morango",cor:"#2E5C8A"},
+ {min:7.5,max:7.9,rot:"SATISFATÓRIO PLENO",doce:"🍭 Pirulito Napolitano",cor:"#1F6F5C"},
+ {min:7,max:7.4,rot:"SATISFATÓRIO",doce:"🍭 Pirulito Chaves",cor:"#2F7D32"},
+ {min:6.5,max:6.9,rot:"PROGREDINDO BEM",doce:"🍫 1 Bis",cor:"#4A8C3F"},
+ {min:6,max:6.4,rot:"PROGREDINDO",doce:"🍭 Pirulito Coração",cor:"#6FA83B"},
+ {min:5.5,max:5.9,rot:"REGULAR",doce:"🍬🍬 2 Balas",cor:"#D4A017"},
+ {min:5,max:5.4,rot:"NA MÉDIA",doce:"🍬 1 Bala",cor:"#E0A800"},
+ {min:4.5,max:4.9,rot:"QUASE LÁ",doce:"⭐ incentivo · sem doce",cor:"#E07B2C"},
+ {min:3,max:4.4,rot:"VAMOS JUNTOS",doce:"⭐ sem doce · revisar",cor:"#D4407A"},
+ {min:0,max:2.9,rot:"NOVO COMEÇO",doce:"⭐ sem doce · recomeçar",cor:"#A0348A"}];
+
+const DEGRAUS={
+  b3:{cod:"B3",nome:"ENTENDER",cor:"var(--b3)",fig:"circ",dica:"Leia o trecho com calma: a resposta está no que o comando FAZ, não no nome dele."},
+  b4:{cod:"B4",nome:"TESTAR",cor:"var(--b4)",fig:"quad",dica:"A pergunta é sobre a FALA do colega, não sobre o programa inteiro."},
+  b5:{cod:"B5",nome:"CONCLUIR",cor:"var(--b5)",fig:"los",dica:"Esta é a questão oficial da avaliação. Leia todas as alternativas antes de marcar."}
+};
+
+const CHAVE="nav07rev_8ano_3bim_aaim01";
+const VERSAO="V.01.00";
+const MAX_TENT=4;
+const CHECKPOINT=10;
+
+/* ==================== ESTADO ==================== */
+let estudante="", turma="", roteiro=[], iTela=0, totalPerguntas=0;
+let registro={}, tentAtual=1, parAtual=null, respondeuAgora=false;
+let saidasTC=0, avisoAberto=false, fatiaBit=0, liberado=false;
+let horaInicio=null;
+
+/* ==================== PYTHON HIGHLIGHT ==================== */
+const PY_KW=["import","from","if","else","elif","def","return","while","for","in","and","or","not","True","False","None"];
+const PY_BI=["print","input","int","str","len","range","random","randint","time","sleep","append"];
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function pintarPython(src){
+  const linhas=esc(src).split("\n");
+  return linhas.map(function(l){
+    let out="", i=0;
+    while(i<l.length){
+      const c=l[i];
+      if(c==='"'||c==="'"){
+        let j=i+1; while(j<l.length&&l[j]!==c) j++;
+        out+='<span class="st">'+l.slice(i,Math.min(j+1,l.length))+'</span>'; i=j+1; continue;
+      }
+      if(/[A-Za-z_]/.test(c)){
+        let j=i; while(j<l.length&&/[A-Za-z_0-9]/.test(l[j])) j++;
+        const w=l.slice(i,j);
+        if(PY_KW.indexOf(w)>=0) out+='<span class="kw">'+w+'</span>';
+        else if(PY_BI.indexOf(w)>=0) out+='<span class="bi">'+w+'</span>';
+        else if(l[j]==="(") out+='<span class="fn">'+w+'</span>';
+        else out+=w;
+        i=j; continue;
+      }
+      if(/[0-9]/.test(c)){
+        let j=i; while(j<l.length&&/[0-9.]/.test(l[j])) j++;
+        out+='<span class="nu">'+l.slice(i,j)+'</span>'; i=j; continue;
+      }
+      out+=c; i++;
+    }
+    return out;
+  }).join("\n");
+}
+
+/* ==================== PERSISTENCIA ==================== */
+function lerDados(){try{return JSON.parse(localStorage.getItem(CHAVE))||{}}catch(e){return {}}}
+function gravarDados(d){try{localStorage.setItem(CHAVE,JSON.stringify(d))}catch(e){}}
+
+/* ==================== TELA CHEIA ==================== */
+function pedirTelaCheia(){const e=document.documentElement; if(e.requestFullscreen) e.requestFullscreen().catch(function(){})}
+function voltarTelaCheia(){document.getElementById("avisoTC").classList.remove("abre");avisoAberto=false;pedirTelaCheia()}
+function ignorarTelaCheia(){document.getElementById("avisoTC").classList.remove("abre");avisoAberto=false}
+document.addEventListener("fullscreenchange",function(){
+  if(!document.fullscreenElement&&horaInicio&&!avisoAberto){
+    saidasTC++; avisoAberto=true;
+    document.getElementById("contTC").innerHTML=saidasTC+"<small>saída(s) registrada(s)</small>";
+    document.getElementById("avisoTC").classList.add("abre");
+    document.getElementById("stSaidas").textContent="⛶ Saídas: "+saidasTC;
+  }
+});
+
+/* ==================== ROTEIRO ==================== */
+function montarRoteiro(){
+  roteiro=[]; let n=0; let aulaAtual="";
+  BANCO.forEach(function(q,qi){
+    if(q.aula!==aulaAtual){ aulaAtual=q.aula; roteiro.push({t:"capa",aula:q.aula}); }
+    ["b3","b4","b5"].forEach(function(d){
+      n++;
+      roteiro.push({t:"perg",qi:qi,deg:d,n:n,aula:q.aula});
+      if(n%CHECKPOINT===0) roteiro.push({t:"chk",marco:n});
+    });
+  });
+  roteiro.push({t:"final"});
+  totalPerguntas=n;
+}
+function nomeAula(id){const a=AULAS.filter(function(x){return x.id===id})[0];return a?a.nome:id}
+function corAula(id){const a=AULAS.filter(function(x){return x.id===id})[0];return a?a.cor:"#6B7C85"}
+
+/* ==================== TRILHA ==================== */
+function desenharTrilha(){
+  const bar=document.getElementById("trilhabar");
+  if(!horaInicio){bar.style.display="none";return}
+  bar.style.display="block";
+  const atual=roteiro[iTela];
+  let h='<div class="telacont">tela '+(iTela+1)+' de '+roteiro.length+' · '+
+        (atual.t==="perg"?("pergunta "+atual.n+" de "+totalPerguntas):rotuloTela(atual))+'</div>';
+  AULAS.forEach(function(a){
+    const its=roteiro.filter(function(r){return r.t==="perg"&&r.aula===a.id});
+    if(!its.length) return;
+    h+='<div class="linhaaula"><span class="rotaula" style="color:'+a.cor+'">'+a.id+'</span>';
+    its.forEach(function(r){
+      const reg=registro[r.n]; const fig=DEGRAUS[r.deg].fig;
+      let cls="mk "+fig;
+      if(atual.t==="perg"&&atual.n===r.n) cls+=" aqui";
+      else if(reg){ cls+= reg.tent===1?" ok":(reg.tent<=3?" med":" no"); }
+      h+='<span class="'+cls+'" title="pergunta '+r.n+'"></span>';
+    });
+    h+='</div>';
+  });
+  h+='<div class="legtrilha">'+
+     '<span><i class="mk circ"></i>B3 entender</span>'+
+     '<span><i class="mk quad"></i>B4 testar</span>'+
+     '<span><i class="mk los"></i>B5 concluir · questão oficial</span>'+
+     '<span><i class="mk circ ok"></i>acertou de primeira</span>'+
+     '<span><i class="mk circ med"></i>acertou até a 3ª</span>'+
+     '<span><i class="mk circ no"></i>4ª tentativa</span></div>';
+  if(!liberado) h+='<div class="travado">🔒 A lista completa abre na tela final. Aqui não dá para voltar nem refazer: cada pergunta vale a tentativa em que você acertar.</div>';
+  bar.innerHTML=h;
+}
+function rotuloTela(r){
+  if(r.t==="capa") return nomeAula(r.aula);
+  if(r.t==="chk") return "placar parcial";
+  if(r.t==="final") return "placar final";
+  return "identificação";
+}
+
+/* ==================== STATUS ==================== */
+function atualizarStatus(){
+  document.getElementById("stNome").textContent="Estudante: "+(estudante||"—");
+  document.getElementById("stTurma").textContent="Turma: "+(turma||"—");
+  document.getElementById("stTent").textContent="Tentativa "+tentAtual;
+  document.getElementById("stTela").textContent="Tela "+(iTela+1);
+  const a=roteiro[iTela];
+  document.getElementById("stPerg").textContent=
+    (a&&a.t==="perg")?("pergunta "+a.n+" de "+totalPerguntas):(a?rotuloTela(a):"antes de começar");
+  document.getElementById("stSaidas").textContent="⛶ Saídas: "+saidasTC;
+}
+
+/* ==================== NOTAS E GATILHOS ==================== */
+function nota(ate){
+  let ac=0;
+  for(let k=1;k<=totalPerguntas;k++){ const r=registro[k]; if(r&&r.tent<=ate) ac++; }
+  return {ac:ac,nota:totalPerguntas?(ac/totalPerguntas*10):0};
+}
+function notaParcial(ate,feitas){
+  let ac=0;
+  for(let k=1;k<=feitas;k++){ const r=registro[k]; if(r&&r.tent<=ate) ac++; }
+  return feitas?(ac/feitas*10):0;
+}
+function n2(x){return x.toFixed(2).replace(".",",")}
+function faixaPremio(v){for(let i=0;i<PREMIOS.length;i++){if(v>=PREMIOS[i].min&&v<=PREMIOS[i].max) return PREMIOS[i]}return PREMIOS[PREMIOS.length-1]}
+
+/* ==================== ABERTURA ==================== */
+function telaAbertura(){
+  document.getElementById("palco").innerHTML=`
+  <div class="card">
+    <h1>Revisão da 1ª AAIM · 8º ano</h1>
+    <h2>3º bimestre · Unidade 01 · Algoritmos, listas e repetição com Python</h2>
+    <p>Esta revisão pega as <b>15 questões da avaliação</b> e quebra cada uma em <b>3 degraus</b>:
+       entender, testar e concluir. São <b>45 perguntas</b> no total.</p>
+    <div class="campo"><label for="inNome">Seu nome completo</label>
+      <input id="inNome" type="text" placeholder="Digite seu nome" autocomplete="off"></div>
+    <div class="campo"><label>Sua turma</label>
+      <div class="turmabox"><span class="ano">8º ANO</span>
+        <div class="turmagrid">
+          <button type="button" class="turmabtn" id="tA" onclick="escolherTurma('A')">A</button>
+          <button type="button" class="turmabtn" id="tB" onclick="escolherTurma('B')">B</button>
+        </div></div></div>
+    <div class="regras"><ul>
+      <li>A linha de figuras no alto mostra <b>todas</b> as telas, separadas por aula.</li>
+      <li>Cada questão da avaliação vira <b>3 perguntas</b>: ● entender · ■ testar · ◆ concluir.</li>
+      <li>A pergunta ◆ é a <b>questão oficial da avaliação</b>, com as mesmas alternativas.</li>
+      <li>Você tem até <b>4 tentativas</b> em cada pergunta. A cada erro, as alternativas mudam.</li>
+      <li>Na <b>4ª tentativa</b> o ajudante BIT entra com a explicação e a pergunta avança de qualquer jeito.</li>
+      <li>A cada <b>10 perguntas</b> aparece um placar parcial com os três gatilhos de prêmio.</li>
+      <li>Não dá para voltar nem refazer no meio: a lista completa abre <b>só na tela final</b>.</li>
+      <li>A atividade abre em tela cheia. Sair da tela cheia é registrado.</li>
+      <li>Vale mais acertar poucas com atenção do que responder tudo depressa.</li>
+    </ul></div>
+    <button class="btn" onclick="comecar()">Começar a revisão</button>
+  </div>`;
+  atualizarStatus(); desenharTrilha();
+}
+function escolherTurma(l){
+  turma="8º"+l;
+  ["A", "B"].forEach(function(x){
+    const b=document.getElementById("t"+x); if(b) b.classList.toggle("sel",x===l);
+  });
+  atualizarStatus();
+}
+function comecar(){
+  const n=document.getElementById("inNome").value.trim();
+  if(!n){alert("Digite o seu nome completo.");return}
+  if(!turma){alert("Escolha a sua turma.");return}
+  estudante=n; horaInicio=new Date();
+  pedirTelaCheia();
+  iTela=-1; telaConvivencia();
+}
+
+/* ==================== CONVIVENCIA · UMA VEZ SO ==================== */
+function telaConvivencia(){
+  document.getElementById("palco").innerHTML=`
+  <div class="card">
+    <div class="conviv">
+      <h2 style="color:var(--conv)">Antes de começar · o combinado</h2>
+      <p><b>Celular guardado.</b> Duas leis mudaram o uso de celular na escola: a federal
+         <b>15.100/2025</b>, que vale no Brasil inteiro, e a estadual <b>18.058/2024</b>, que vale em São Paulo.</p>
+      <p><b>O computador desta aula é diferente.</b> Ele foi pedido pelo professor, para a atividade.
+         Isso é uso pedagógico e está entre as exceções previstas na lei. O celular no bolso, não.</p>
+      <p><b>Tela cheia.</b> Esta revisão é individual e abre em tela cheia. Sair da tela cheia fica registrado
+         no seu relatório final. Não é castigo: é para você ficar só nesta atividade.</p>
+      <label class="acordo"><input type="checkbox" id="ac1" onchange="checarAcordo()">
+        Eu li, entendi, e o meu celular está guardado durante esta atividade.</label>
+      <label class="acordo"><input type="checkbox" id="ac2" onchange="checarAcordo()">
+        Entendi que esta revisão é individual e que não dá para voltar no meio.</label>
+    </div>
+    <button class="btn" id="btnConv" disabled onclick="iTela=0;render()">Começar a revisão</button>
+    <div style="font-size:16px;color:var(--cinza);margin-top:10px;text-align:center">
+      Este aviso aparece uma vez só. Depois daqui, o foco é a revisão.</div>
+  </div>`;
+  document.getElementById("trilhabar").style.display="none";
+  atualizarStatus();
+}
+function checarAcordo(){
+  const a=document.getElementById("ac1").checked, b=document.getElementById("ac2").checked;
+  document.getElementById("btnConv").disabled=!(a&&b);
+}
+
+/* ==================== RENDER ==================== */
+function render(){
+  const r=roteiro[iTela];
+  if(!r) return;
+  if(r.t==="capa") telaCapa(r);
+  else if(r.t==="perg") telaPergunta(r);
+  else if(r.t==="chk") telaCheckpoint(r);
+  else if(r.t==="final") telaFinal();
+  atualizarStatus(); desenharTrilha(); window.scrollTo(0,0);
+}
+function avancar(){iTela++;render()}
+
+function telaCapa(r){
+  const qs=BANCO.filter(function(q){return q.aula===r.aula});
+  document.getElementById("palco").innerHTML=`
+  <div class="card" style="border-top:8px solid ${corAula(r.aula)}">
+    <h1 style="color:${corAula(r.aula)}">${nomeAula(r.aula)}</h1>
+    <p>Esta aula tem <b>${qs.length} questões</b> da avaliação, ou seja <b>${qs.length*3} perguntas</b> aqui.</p>
+    <p style="font-size:16px;color:var(--cinza)">O que aparece nesta parte: ${qs.map(function(q){return q.titulo}).join(" · ")}.</p>
+    <button class="btn" onclick="avancar()">Seguir ▶</button>
+  </div>`;
+}
+
+/* ==================== PERGUNTA ==================== */
+function parDaTentativa(deg,t){
+  const combos=[[0,0],[0,1],[1,0],[1,1]];
+  const c=combos[(t-1)%4];
+  const cert=deg.ok[c[0]], err=deg.no[c[1]];
+  const primeiroCerto=Math.random()<0.5;
+  return primeiroCerto?{alts:[cert,err],cert:0}:{alts:[err,cert],cert:1};
+}
+function telaPergunta(r){
+  const q=BANCO[r.qi], d=DEGRAUS[r.deg], deg=q[r.deg];
+  if(!registro[r.n]) { tentAtual=1; }
+  respondeuAgora=false; fatiaBit=0;
+  if(r.deg==="b5"){ parAtual={alts:deg.alts.slice(),cert:deg.cert}; }
+  else { parAtual=parDaTentativa(deg,tentAtual); }
+
+  let h='<div class="card">';
+  h+='<div class="selo" style="background:'+d.cor+'"><span class="bola"></span>'+d.cod+' · '+d.nome+' · degrau '+(r.deg==="b3"?1:(r.deg==="b4"?2:3))+' de 3</div>';
+  h+='<div style="font-size:16px;color:var(--cinza);font-weight:800;margin-bottom:8px">'+
+     nomeAula(q.aula)+' · questão '+q.of+' da avaliação · pergunta '+r.n+' de '+totalPerguntas+'</div>';
+
+  /* card verde */
+  h+='<div class="cverde"><h3>'+q.titulo+' · '+q.persona+'</h3><p>'+q.contexto+'</p>';
+  if(q.codigo) h+='<div class="pycode">'+pintarPython(q.codigo)+'</div>'+
+                  '<div class="pyleg">As cores marcam o tipo de palavra: comando do Python em vermelho, texto entre aspas em azul-claro, número em amarelo, nome de função em roxo.</div>';
+  if(r.deg!=="b3"&&q.fala){ h+='<p style="margin-top:10px"><b>'+q.colega+'</b></p><div class="balao">“'+q.fala+'”</div>'; }
+  h+='<div>'+q.glossario.map(function(g,i){return '<span class="gchip" onclick="abrirG('+r.qi+','+i+')">📖 '+g.t+'</span>'}).join("")+'</div>';
+  h+='</div>';
+
+  /* card roxo · so no B5 */
+  if(r.deg==="b5"){
+    h+='<div class="croxo"><h3>Questão oficial da avaliação</h3><p>'+deg.p+'</p></div>';
+  }
+  /* card laranja */
+  h+='<div class="claranja">💡 '+d.dica+'</div>';
+  /* card azul · so no B4 */
+  if(r.deg==="b4") h+='<div class="cazul">🔎 Atenção ao ponto de vista: a resposta é <b>sobre a fala do colega</b>, não sobre o programa inteiro.</div>';
+
+  if(r.deg!=="b5") h+='<h3 style="margin-top:14px">'+deg.p+'</h3>';
+  h+='<div id="alts">'+parAtual.alts.map(function(a,i){
+       return '<button class="alt" id="alt'+i+'" onclick="responder('+i+')"><span class="let">'+
+              String.fromCharCode(65+i)+')</span> '+a+'</button>';
+     }).join("")+'</div>';
+  h+='<div id="pos"></div></div>';
+  document.getElementById("palco").innerHTML=h;
+}
+
+function responder(i){
+  if(respondeuAgora) return;
+  respondeuAgora=true;
+  const r=roteiro[iTela];
+  const certo=(i===parAtual.cert);
+  parAtual.alts.forEach(function(a,k){
+    const b=document.getElementById("alt"+k); if(!b) return;
+    b.disabled=true;
+    if(k===parAtual.cert) b.classList.add("certo");
+    else if(k===i) b.classList.add("errado");
+  });
+  let h="";
+  if(certo){
+    registro[r.n]={tent:tentAtual};
+    h+='<div class="veredito ok">✔ Você acertou na tentativa '+tentAtual+'.</div>';
+    h+='<button class="btn" onclick="proxima()">Continuar ▶</button>';
+  } else {
+    if(tentAtual<MAX_TENT){
+      tentAtual++;
+      h+='<div class="veredito no">✘ Ainda não. As alternativas mudam na próxima tentativa.</div>';
+      h+='<button class="btn" onclick="novaTentativa()">Tentar de novo · tentativa '+tentAtual+' de '+MAX_TENT+'</button>';
+    } else {
+      registro[r.n]={tent:4};
+      h+='<div class="veredito no">✘ Esta era a 4ª tentativa. O BIT entra agora e a revisão segue em frente.</div>';
+      h+=blocoBit(r);
+    }
+  }
+  document.getElementById("pos").innerHTML=h;
+  atualizarStatus(); desenharTrilha();
+}
+function novaTentativa(){ render(); }
+function proxima(){ tentAtual=1; avancar(); }
+
+/* ==================== AJUDA · DEGRAU 3 · A MAQUINA ==================== */
+function fatiasBit(r){
+  const q=BANCO[r.qi], deg=q[r.deg];
+  const certa=deg.ok?deg.ok[0]:deg.alts[deg.cert];
+  const f=[];
+  f.push("Sou o BIT, a máquina que ajuda. Vou por partes, uma ideia de cada vez.");
+  f.push("Primeiro olhe o que está em jogo aqui: "+q.titulo.toLowerCase()+".");
+  if(q.codigo) f.push("Volte ao trecho de código e leia só a linha que tem o comando principal.");
+  f.push("Guarde este termo do glossário: "+q.glossario[0].t+" — "+q.glossario[0].d);
+  f.push("A resposta que se sustenta é esta: "+certa);
+  return f;
+}
+function blocoBit(r){
+  const f=fatiasBit(r);
+  fatiaBit=0;
+  return '<div class="bit" id="bitcx"><div class="bitcab">🤖 BIT · ajuda da máquina</div>'+
+         '<div id="bitfatias"><div class="bitfat">'+f[0]+'</div></div>'+
+         '<button class="btn sec" id="btnBit" onclick="proxFatia('+r.qi+')">Próxima dica ▶</button>'+
+         '<button class="btn" id="btnBitFim" style="display:none" onclick="proxima()">Continuar ▶</button></div>';
+}
+function proxFatia(qi){
+  const r=roteiro[iTela]; const f=fatiasBit(r);
+  fatiaBit++;
+  const cx=document.getElementById("bitfatias");
+  cx.innerHTML+='<div class="bitfat">'+f[fatiaBit]+'</div>';
+  if(fatiaBit>=f.length-1){
+    document.getElementById("btnBit").style.display="none";
+    document.getElementById("btnBitFim").style.display="block";
+  }
+}
+
+/* ==================== GLOSSARIO ==================== */
+function abrirG(qi,gi){
+  const g=BANCO[qi].glossario[gi];
+  document.getElementById("caixaG").innerHTML='<h2>📖 '+g.t+'</h2><p>'+g.d+'</p>'+
+    '<button class="btn" onclick="fecharModal()">Fechar</button>';
+  document.getElementById("modalG").classList.add("abre");
+}
+function fecharModal(){document.getElementById("modalG").classList.remove("abre")}
+
+/* ==================== PLACAR PARCIAL ==================== */
+function gatilhoHTML(feitas){
+  const g=[
+    {ate:1,alvo:9.0,rot:"1ª tentativa · nota 9,00"},
+    {ate:2,alvo:8.0,rot:"até a 2ª tentativa · nota 8,00"},
+    {ate:3,alvo:7.0,rot:"até a 3ª tentativa · nota 7,00"}
+  ];
+  return g.map(function(x){
+    const v=notaParcial(x.ate,feitas);
+    const on=v>=x.alvo;
+    return '<div class="gat '+(on?"on":"off")+'">'+(on?"✔":"○")+' '+x.rot+
+           ' <span style="margin-left:auto">'+n2(v)+'</span></div>';
+  }).join("");
+}
+function telaCheckpoint(r){
+  const feitas=r.marco;
+  const n1=notaParcial(1,feitas);
+  document.getElementById("palco").innerHTML=`
+  <div class="card" style="text-align:center">
+    <div style="display:inline-block;background:var(--verde-esc);color:#fff;font-size:16px;font-weight:800;
+      padding:6px 16px;border-radius:20px;letter-spacing:1px;margin-bottom:12px">PLACAR PARCIAL · PERGUNTA ${feitas} DE ${totalPerguntas}</div>
+    <h2>Como você está indo</h2>
+    <div class="pontos">
+      <div class="pt a"><div class="n">${n2(notaParcial(1,feitas))}</div><div class="r">1ª TENTATIVA</div></div>
+      <div class="pt b"><div class="n">${n2(notaParcial(2,feitas))}</div><div class="r">ATÉ A 2ª</div></div>
+      <div class="pt c"><div class="n">${n2(notaParcial(3,feitas))}</div><div class="r">ATÉ A 3ª</div></div>
+    </div>
+    <div style="text-align:left">${gatilhoHTML(feitas)}</div>
+    <div class="falaprof"><span class="quem">RECADO DO PROFESSOR MARCOS</span>
+      ${n1>=9?"“Está firme. Continue lendo com a mesma calma.”":
+        (n1>=7?"“Bom caminho. Antes de marcar, releia o trecho de código.”":
+               "“Sem pressa. Vale mais acertar poucas com atenção do que responder tudo depressa.”")}</div>
+    <div style="font-size:16px;font-weight:800;color:${saidasTC===0?'var(--ok)':'var(--erro)'};margin-bottom:10px">
+      ⛶ Saídas da tela cheia: ${saidasTC}</div>
+    <button class="btn" onclick="avancar()">Continuar ▶</button>
+  </div>`;
+}
+
+/* ==================== FINAL ==================== */
+function telaFinal(){
+  liberado=true;
+  const r1=nota(1), r2=nota(2), r3=nota(3);
+  let premio="", cor="";
+  if(r1.nota>=9){premio="PREMIAÇÃO PARCIAL CONQUISTADA · nota 9,00 ou mais na 1ª tentativa";cor="var(--ok)"}
+  else if(r2.nota>=8){premio="GATILHO DA 2ª TENTATIVA ATINGIDO · nota 8,00 ou mais";cor="var(--verde-esc)"}
+  else if(r3.nota>=7){premio="GATILHO DA 3ª TENTATIVA ATINGIDO · nota 7,00 ou mais";cor="var(--b4)"}
+  else {premio="REVISÃO CONCLUÍDA · nenhum gatilho atingido desta vez";cor="var(--erro)"}
+
+  const d=lerDados();
+  d.hist=(d.hist||[]).concat([{n1:r1.nota,n2:r2.nota,n3:r3.nota,data:new Date().toLocaleDateString("pt-BR"),
+    nome:estudante,turma:turma,saidas:saidasTC}]);
+  gravarDados(d);
+
+  let porAula="";
+  AULAS.forEach(function(a){
+    const its=roteiro.filter(function(x){return x.t==="perg"&&x.aula===a.id});
+    if(!its.length) return;
+    const ac=its.filter(function(x){return registro[x.n]&&registro[x.n].tent===1}).length;
+    porAula+='<tr><td><b>'+a.nome+'</b></td><td style="text-align:center">'+ac+'/'+its.length+'</td></tr>';
+  });
+
+  let lista="";
+  BANCO.forEach(function(q){
+    lista+='<tr><td><b>Questão '+q.of+'</b> · '+q.titulo+'<br><span style="font-size:16px;color:var(--cinza)">'+nomeAula(q.aula)+'</span></td><td>';
+    ["b3","b4","b5"].forEach(function(dg){
+      const it=roteiro.filter(function(x){return x.t==="perg"&&x.qi===BANCO.indexOf(q)&&x.deg===dg})[0];
+      const reg=it?registro[it.n]:null;
+      lista+='<div style="font-size:16px">'+DEGRAUS[dg].cod+' '+DEGRAUS[dg].nome+': '+
+             (reg?("acertou na tentativa "+reg.tent):"—")+'</div>';
+    });
+    lista+='<div style="font-size:16px;margin-top:5px;color:var(--ok)"><b>Resposta certa da oficial:</b> '+
+           q.b5.alts[q.b5.cert]+'</div></td></tr>';
+  });
+
+  let prem='<div style="margin-top:16px"><h3>🏆 Placar de fechamento de bimestre</h3>'+
+    '<div style="background:var(--destaque);border-left:6px solid #E4C86A;border-radius:0 12px 12px 0;padding:12px 14px;margin:10px 0;font-size:16px">'+
+    '📌 Esta tabela <b>não</b> premia o resultado desta revisão. Ela é o placar de <b>fechamento do bimestre</b>: '+
+    'quem classifica a faixa é a sua nota nas <b>avaliações da Alura</b>. A revisão é o treino.</div>';
+  PREMIOS.forEach(function(p){
+    const f=(p.min===p.max)?n2(p.min):(n2(p.min)+"–"+n2(p.max));
+    prem+='<div class="premlinha" style="background:'+p.cor+'"><span style="font-weight:900;min-width:74px">'+f+
+          '</span><span style="font-weight:800;flex:1">'+p.rot+'</span><span>'+p.doce+'</span></div>';
+  });
+  prem+='</div>';
+
+  document.getElementById("palco").innerHTML=`
+  <div class="card">
+    <h1>Revisão concluída</h1>
+    <div style="font-size:16px;color:var(--cinza);font-weight:700">${estudante} · ${turma} · ${VERSAO}</div>
+    <div class="faixa" style="color:${cor}">${premio}</div>
+    <div class="pontos">
+      <div class="pt a"><div class="n">${n2(r1.nota)}</div><div class="r">1ª TENTATIVA</div></div>
+      <div class="pt b"><div class="n">${n2(r2.nota)}</div><div class="r">ATÉ A 2ª</div></div>
+      <div class="pt c"><div class="n">${n2(r3.nota)}</div><div class="r">ATÉ A 3ª</div></div>
+    </div>
+    <div>${gatilhoHTML(totalPerguntas)}</div>
+    <div class="falaprof"><span class="quem">RECADO DO PROFESSOR MARCOS</span>
+      “A avaliação na Alura tem 15 questões no banco e cada estudante recebe 10 delas, sorteadas entre as versões A, B, C e D. Por isso a revisão passa pelas 15.”</div>
+    <div style="background:${saidasTC===0?'#E3F5DE':'#FCE4E8'};border-left:6px solid ${saidasTC===0?'var(--ok)':'var(--erro)'};
+      border-radius:0 12px 12px 0;padding:12px 15px;margin-bottom:14px;font-size:16px;line-height:1.6">
+      <b style="display:block;color:var(--roxo);margin-bottom:5px">REGISTRO DE FOCO</b>
+      Início: <b>${horaInicio?horaInicio.toLocaleTimeString("pt-BR").slice(0,5):"—"}</b> ·
+      Duração: <b>${horaInicio?Math.max(1,Math.round((Date.now()-horaInicio.getTime())/60000))+" min":"—"}</b><br>
+      Saídas da tela cheia: <b>${saidasTC}</b></div>
+    <table class="tabela"><tr><th>Aula</th><th style="text-align:center">Acertos de primeira</th></tr>${porAula}</table>
+    ${prem}
+    <h3 style="margin-top:18px">🔓 Lista completa · liberada agora</h3>
+    <table class="tabela"><tr><th>Questão da avaliação</th><th>Seus degraus</th></tr>${lista}</table>
+    <button class="btn" onclick="location.reload()">Refazer a revisão do começo</button>
+    <div style="font-size:16px;color:var(--cinza);margin-top:10px;text-align:center">
+      Refazer é a última coisa do dia: primeiro responda a avaliação na Alura.</div>
+  </div>`;
+}
+
+/* ==================== INICIO ==================== */
+montarRoteiro();
+telaAbertura();
+</script>
+</body>
+</html>
