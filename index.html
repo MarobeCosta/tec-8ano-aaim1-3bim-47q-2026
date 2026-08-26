@@ -191,6 +191,12 @@ p{font-size:17px;line-height:1.55;margin-bottom:10px}
   padding:14px 16px;margin-bottom:9px;font-size:17px;line-height:1.45;cursor:pointer;font-family:inherit}
 .alt:hover{border-color:var(--roxo);background:var(--creme)}
 .alt .let{display:inline-block;font-weight:900;color:var(--roxo);min-width:26px}
+.alt.vf{display:flex;align-items:center;gap:12px;font-size:19px;letter-spacing:1px;padding:16px 18px}
+.alt.vf .vfm{font-size:22px;line-height:1}
+.alt.vf.v{border-color:#26890C;color:#1B6B08}
+.alt.vf.f{border-color:#E21B3C;color:#B3001B}
+.alt.vf.v:hover{background:#EAF6EC}
+.alt.vf.f:hover{background:#FDECEF}
 .alt.certo{border-color:var(--ok);background:#EAF6EC}
 .alt.errado{border-color:var(--erro);background:#FDECEF}
 .veredito{font-size:17px;font-weight:800;padding:12px 15px;border-radius:12px;margin:10px 0}
@@ -330,7 +336,7 @@ p{font-size:17px;line-height:1.55;margin-bottom:10px}
 /* ==================== MODO ==================== */
 const MODO_TESTE = false;
 const UNIDADE = "Lógica de programação: fundamentos e desafios em Python";
-const VERSAO = "V.05.02";
+const VERSAO = "V.05.04";
 /* ---- selo de conferência · dificulta adulterar o placar ---- */
 function hashTexto(s){
   let h=5381;
@@ -353,7 +359,7 @@ function conferirCorrente(){
   });
   return ok;
 }
-function selosDaProva(){
+function selosDaRodada(){
   const chaves=Object.keys(registro).map(Number);
   const resp=chaves.length;
   let ac1=0; chaves.forEach(function(k){ if(registro[k].tent===1) ac1++ });
@@ -1045,7 +1051,7 @@ const MASLOW=[
  {n:1,cod:"M1",nome:"Fisiológicas",cor:"#2E5C8A"}];
 const NAV_DEG={
  D01:{n:"NAV.01",nome:"RECONHECER",emo:"🧙",cor:"#2E5C8A",
-      err:"as erradas são absurdas ou impossíveis, mas saem das alternativas da prova"},
+      err:"as erradas são absurdas ou impossíveis, mas nascem das alternativas do próprio tema"},
  D02:{n:"NAV.02",nome:"PRATICAR",emo:"🎪",cor:"#4A8C3F",
       err:"as erradas são exageradas, porém plausíveis dentro do próprio card"},
  D03:{n:"NAV.03",nome:"REUNIR",emo:"🧩",cor:"#F0C419",
@@ -1053,7 +1059,7 @@ const NAV_DEG={
  D04:{n:"NAV.04",nome:"APLICAR",emo:"⚙️",cor:"#E07B2C",
       err:"as erradas são erros técnicos reais, que acontecem de verdade"},
  D05:{n:"NAV.OF",nome:"ESPELHAR",emo:"📄",cor:"#212121",
-      err:"são as alternativas da prova, sem alterar"}
+      err:"são as alternativas do tema, sem alterar"}
 };
 const NAV_DERIVADA={num:"NAV.07",nome:"DESCONSTRUIR",cor:"#9C27B0"};
 const NAV_OFICIAL ={num:"NAV.OF",nome:"ESPELHAR",     cor:"#212121"};
@@ -1627,7 +1633,12 @@ function sequenciaDePares(deg,chave){
    e verdadeira ou falsa. A cada tentativa entra outra alternativa. */
 const CACHE_VF={};
 function parOficialVF(deg,t,qi){
-  if(deg.alts.length<=2) return {alts:deg.alts.slice(),cert:deg.cert,afirma:null};
+  if(deg.alts.length<=2){
+    // as questões que já nascem verdadeiro ou falso: a afirmação é a fala do colega
+    const ehV=(deg.cert===0);
+    const alts=(Math.random()<0.5)?["Verdadeiro","Falso"]:["Falso","Verdadeiro"];
+    return {alts:alts,cert:alts.indexOf(ehV?"Verdadeiro":"Falso"),afirma:null};
+  }
   const ch="vf_"+qi;
   if(!CACHE_VF[ch]){
     const ordem=[deg.cert];
@@ -1639,18 +1650,22 @@ function parOficialVF(deg,t,qi){
   const seq=CACHE_VF[ch];
   const idx=seq[(t-1)%seq.length];
   const ehCerta=(idx===deg.cert);
-  const alts=(Math.random()<0.5)?["Verdadeira.","Falsa."]:["Falsa.","Verdadeira."];
-  const pos=alts.indexOf(ehCerta?"Verdadeira.":"Falsa.");
+  const alts=(Math.random()<0.5)?["Verdadeiro","Falso"]:["Falso","Verdadeiro"];
+  const pos=alts.indexOf(ehCerta?"Verdadeiro":"Falso");
   return {alts:alts,cert:pos,afirma:deg.alts[idx]};
 }
 function parDaTentativa(deg,t,chave){
   const seq=sequenciaDePares(deg,chave||"x");
   const p=seq[(t-1)%seq.length];
-  const cert=deg.ok[p.i],err=deg.no[p.j];
-  return (Math.random()<0.5)?{alts:[cert,err],cert:0}:{alts:[err,cert],cert:1};
+  // a cada tentativa entra UMA afirmação, ora verdadeira, ora falsa
+  const mostraCerta=((t-1)%2===0)?(Math.random()<0.65):(Math.random()<0.35);
+  const texto=mostraCerta?deg.ok[p.i]:deg.no[p.j];
+  const alts=(Math.random()<0.5)?["Verdadeiro","Falso"]:["Falso","Verdadeiro"];
+  const pos=alts.indexOf(mostraCerta?"Verdadeiro":"Falso");
+  return {alts:alts,cert:pos,afirma:texto};
 }
 function ordemQDA(q,deg){
-  // QDA = ordem original da prova: questao oficial na ordem do DOCX, degrau dentro dela
+  // QDA = ordem de origem do tema, com o degrau dentro dele
   let n=0, achou=0;
   BANCO.slice().sort(function(a,b){return a.of-b.of}).forEach(function(x){
     degrausDe(x).forEach(function(d){
@@ -1682,9 +1697,9 @@ function telaPergunta(r){
      posD.cod+' · '+posD.nome+' · '+wCurto(posD.cod)+
      '<small>pergunta '+r.n+' de '+totalPerguntas+'</small></div>';
   if(r.deg==="d5"&&q.real!=="D05")
-    h+='<div class="avisomenor">Esta é a pergunta final do tema, no degrau '+posD.cod+' '+posD.nome+
-       '. A questão da prova, porém, cobra '+d.cod+' '+d.nome+', um degrau abaixo do que você acabou '+
-       'de subir. Não é engano: nem toda pergunta final pede o degrau mais alto.</div>';
+    h+='<div class="avisomenor">Esta é a pergunta final do tema. Ela fecha o assunto no degrau '+
+       d.cod+' '+d.nome+', que é um degrau abaixo do que você acabou de subir. '+
+       'Não é engano: nem todo tema termina no degrau mais alto.</div>';
   h+='<div style="font-size:16px;color:var(--cinza);font-weight:800;margin-bottom:8px">'+
      nomeAula(q.aula)+' · tema '+q.ordem+' de '+BANCO.length+TXT_QREF(q)+'</div>';
   h+=linhaQ(q,r);
@@ -1706,15 +1721,23 @@ function telaPergunta(r){
     h+='</div>';
   }
   h+='<div class="claranja">💡 '+((r.deg==="d5"&&q.d5.dica)?q.d5.dica:(r.deg==="d5"&&q.disc?
-      "Na prova você escreve esta resposta com as suas palavras. A resposta completa traz o NOME de cada técnica e o MOTIVO de cada uma.":
+      "Aqui a resposta é escrita com as suas palavras. Uma resposta completa traz o NOME de cada técnica e o MOTIVO de cada uma.":
       d.dica))+'</div>';
   if(r.deg==="d4") h+='<div class="cazul">🔎 Atenção ao ponto de vista: a resposta é <b>sobre a fala do colega</b>, não sobre o programa inteiro.</div>';
-  if(r.deg!=="d5") h+='<h3 style="margin-top:14px">'+deg.p+'</h3>';
+  if(r.deg!=="d5"){
+    h+='<h3 style="margin-top:14px">'+deg.p+'</h3>';
+    if(parAtual.afirma)
+      h+='<div class="afirma"><b>Afirmação para julgar:</b><br>'+parAtual.afirma+'</div>';
+  }
 
   h+='<div id="alts">'+parAtual.alts.map(function(a,i){
-       const marca=(a==="Verdadeira."?"✔":(a==="Falsa."?"✘":String.fromCharCode(65+i)+")"));
+       if(a==="Verdadeiro"||a==="Falso"){
+         const v=(a==="Verdadeiro");
+         return '<button class="alt vf '+(v?"v":"f")+'" id="alt'+i+'" onclick="responder('+i+')">'+
+                '<span class="vfm">'+(v?"✔":"✘")+'</span><b>'+a.toUpperCase()+'</b></button>';
+       }
        return '<button class="alt" id="alt'+i+'" onclick="responder('+i+')"><span class="let">'+
-              marca+'</span> '+a+'</button>'}).join("")+'</div>';
+              String.fromCharCode(65+i)+')</span> '+a+'</button>'}).join("")+'</div>';
   h+='<div id="pos"></div><div id="ajuda">'+blocoAjuda(r)+'</div>'+
      '<div id="chamada"></div>'+cartoes(q,r)+'</div>';
   document.getElementById("palco").innerHTML=h;
@@ -1725,8 +1748,10 @@ function telaPergunta(r){
   }
 }
 
+let depoisDaAjuda="";
 function responder(i){
   if(respondeuAgora) return;
+  depoisDaAjuda="";
   respondeuAgora=true;
   const r=roteiro[iTela],certo=(i===parAtual.cert);
   parAtual.alts.forEach(function(a,k){
@@ -1743,14 +1768,25 @@ function responder(i){
       (AJ.lidas.length?' , depois de usar a ajuda.':'.')+'</div>';
   } else if(tentAtual<MAX_TENT){
     tentAtual++;
-    h='<div class="veredito no">✘ Ainda não. As alternativas mudam na próxima tentativa.</div>'+
-      '<button class="btn" onclick="render()">Tentar de novo · tentativa '+tentAtual+' de '+MAX_TENT+'</button>';
+    h='<div class="veredito no">✘ Ainda não. Leia uma trilha da ajuda, logo abaixo. '+
+      'Quando terminar, o botão de tentar de novo aparece lá no fim.</div>';
+    depoisDaAjuda='<button class="btn" data-t="Tentar de novo · tentativa '+tentAtual+' de '+MAX_TENT+
+      '" onclick="render()">Tentar de novo · tentativa '+tentAtual+' de '+MAX_TENT+'</button>';
   } else {
     registro[r.n]={tent:4,ts:Date.now()};registro[r.n].selo=carimbar(r.n,4,registro[r.n].ts);
     registro[r.n].ajudou=true;
-    h='<div class="veredito no">✘ Esta era a 4ª tentativa. Leia a ajuda e siga em frente.</div>';
+    h='<div class="veredito no">✘ Esta era a 4ª tentativa. Leia uma trilha da ajuda e siga em frente.</div>';
   }
   document.getElementById("pos").innerHTML=h;
+  const aj=document.getElementById("ajuda");
+  if(aj){
+    aj.innerHTML=blocoAjuda(r)+(depoisDaAjuda?('<div id="depois">'+depoisDaAjuda+'</div>'):"");
+    if(ajudaObrigatoria()){
+      travarAlternativas();
+      const bt=aj.querySelector("#depois .btn");
+      if(bt){ bt.disabled=true; bt.textContent="termine uma trilha para tentar de novo" }
+    }
+  }
   atualizarStatus();desenharTrilha();pintarRodape();
 }
 
@@ -1811,6 +1847,8 @@ function fimTrilha(){
   destravarAlternativas();
   document.getElementById("tr").innerHTML=
     '<div class="fatia">✅ Trilha concluída. Agora tente responder.</div>';
+  const bt=document.querySelector("#depois .btn");
+  if(bt){ bt.disabled=false; bt.textContent=bt.getAttribute("data-t")||"Tentar de novo" }
 }
 function destravarAlternativas(){
   document.querySelectorAll("#alts .alt").forEach(function(b){ b.disabled=false; b.classList.remove("travada") });
@@ -1917,7 +1955,7 @@ function telaCheckpoint(r){
 
 /* ==================== FINAL ==================== */
 function painelConferencia(){
-  const s=selosDaProva();
+  const s=selosDaRodada();
   const suspeito = (!s.completo || !s.correnteOk || !s.tempoOk);
   let h='<div style="border-radius:14px;padding:14px 16px;margin:14px 0;border:3px solid '+
         (suspeito?'var(--erro)':'var(--ok)')+';background:'+(suspeito?'#FDECEF':'#EAF6EC')+'">'+
