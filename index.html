@@ -6,18 +6,23 @@
 <title>Revisão · 8º ano · 3º bimestre</title>
 <style>
 :root{
-  --verde:#5FBFAA; --verde-esc:#2E8C7A; --roxo:#7B2D8E; --roxo-esc:#5A1F69;
-  --creme:#F2F7F5; --tinta:#17242B; --cinza:#6B7C85; --borda:#D3DEDB;
-  --ok:#26890C; --erro:#E21B3C; --alerta:#D89E00; --conv:#8E2B2B; --convbg:#FBECEC;
-  --destaque:#FFF3CD; --d3:#F0C419; --d4:#E07B2C; --d5:#D32F2F;
+  /* paleta do modelo NAV-REV de junho */
+  --azul:#2E5C8A; --azul-claro:#E8F1FB;
+  --verde:#4A8C3F; --verde-claro:#E8F5E5; --verde-esc:#2E6029;
+  --laranja:#E07B2C; --laranja-claro:#FBEEDE;
+  --roxo:#6B4B9C; --roxo-esc:#4A2C7D; --roxo-claro:#EDE6F5;
+  --lilas1:#B8A0D8; --lilas2:#C8B8E0; --lilas3:#D4C5E8;
+  --creme:#F4F4F4; --tinta:#2D2D2D; --cinza:#6E6E6E; --borda:#E2DCEC;
+  --ok:#4A8C3F; --erro:#B83D3D; --alerta:#D89E00; --conv:#B83D3D; --convbg:#FBEEEE;
+  --destaque:#FFF3CD; --d3:#F0C419; --d4:#E07B2C; --d5:#B83D3D;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
-  background:linear-gradient(160deg,#2E8C7A 0%,#5FBFAA 45%,#7B2D8E 100%);
+body{font-family:"Segoe UI","Helvetica Neue",Arial,sans-serif;font-size:18px;line-height:1.6;
+  background:linear-gradient(135deg,var(--lilas1) 0%,var(--lilas2) 30%,var(--lilas3) 70%,var(--lilas1) 100%);
   background-attachment:fixed;color:var(--tinta);min-height:100vh;padding-bottom:104px}
 
 #selotest{background:#B3001B;color:#fff;text-align:center;font-size:16px;font-weight:900;
-  letter-spacing:1px;padding:7px 10px;position:sticky;top:0;z-index:70}
+  letter-spacing:1px;padding:7px 10px}
 #idbar{background:#fff;border-bottom:4px solid var(--roxo);padding:8px 14px;
   display:flex;align-items:center;gap:10px;flex-wrap:wrap;box-shadow:0 3px 12px rgba(0,0,0,.25)}
 #idbar .l1{font-size:16px;font-weight:800;color:var(--roxo);line-height:1.15}
@@ -25,10 +30,16 @@ body{font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
 #idbar .l3{font-size:16px;color:var(--cinza);line-height:1.15}
 .minibtn{border:2px solid var(--verde-esc);background:#fff;color:var(--verde-esc);border-radius:20px;
   padding:4px 12px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit}
-#statusbar{background:rgba(255,255,255,.94);padding:6px 12px;display:flex;gap:6px;flex-wrap:wrap;
-  border-bottom:2px solid var(--borda)}
+#statusbar{position:sticky;top:0;z-index:75;background:#fff;padding:7px 12px;display:flex;gap:6px;
+  flex-wrap:nowrap;overflow-x:auto;white-space:nowrap;border-bottom:3px solid var(--roxo);
+  box-shadow:0 2px 10px rgba(0,0,0,.18);scrollbar-width:thin}
+#statusbar .chip{flex:0 0 auto}
 .chip{font-size:16px;font-weight:800;padding:3px 10px;border-radius:14px;background:#EEF4F2;color:var(--cinza)}
 .chip.ver{background:var(--roxo);color:#fff}
+.chip.deg.cat{background:#EEF4F2;color:#4A5C64;border:2px solid #D3DEDB;font-weight:800;letter-spacing:0}
+.chip.tema{background:#EEF4F2;color:#4A5C64;border-color:#D3DEDB;font-weight:800}
+.chip.nav{font-weight:900;border-width:2px}
+.chip.rod{background:#EDE3F6;color:#5B2A6E;border-color:#C9A9DC;font-weight:900}
 .chip.tent{background:var(--alerta);color:#fff}
 .chip.tela{background:var(--verde-esc);color:#fff}
 .chip.sai{background:#EEF4F2;color:var(--erro)}
@@ -62,6 +73,12 @@ p{font-size:17px;line-height:1.55;margin-bottom:10px}
 .cardr-t{display:flex;align-items:center;gap:8px;font-size:17px;font-weight:900;margin-bottom:6px}
 .cardr-t span{font-size:20px}
 .cardr-x{font-size:16px;line-height:1.5;color:var(--tinta)}
+.retom{background:#EDE3F6;border:3px solid #7B2D8E;border-radius:14px;padding:15px 17px;margin:14px 0}
+.retom-t{font-size:17px;font-weight:900;color:#5B2A6E;margin-bottom:6px}
+.retom p{font-size:16px;line-height:1.55}
+.retom-bs{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.retom .btn{margin:0}
+.retom .btn.zero{background:#fff;color:#5B2A6E;border:2px solid #7B2D8E}
 .regras{background:var(--creme);border-left:5px solid var(--verde);border-radius:0 11px 11px 0;padding:14px 16px;margin:16px 0}
 .regras li{margin:0 0 7px 18px;font-size:16px;line-height:1.45}
 .campo{margin-bottom:14px}
@@ -80,11 +97,28 @@ p{font-size:17px;line-height:1.55;margin-bottom:10px}
   padding:11px 15px;margin-bottom:12px;font-size:16px;line-height:1.5;color:#8A4A10;font-weight:700}
 
 /* ---------- cards ---------- */
-.cverde{background:#EAF6EC;border-left:6px solid var(--ok);border-radius:0 14px 14px 0;padding:16px 18px;margin-bottom:12px}
+.cverde{border-radius:18px;box-shadow:0 8px 30px rgba(107,75,156,.18);background:#EAF6EC;border-left:6px solid var(--ok);border-radius:0 14px 14px 0;padding:16px 18px;margin-bottom:12px}
+.montado{background:#F2F7F5;border:3px solid var(--roxo);border-radius:14px;padding:16px 18px;margin:14px 0}
+.montado-t{font-size:17px;font-weight:900;color:var(--roxo);margin-bottom:8px}
+.montado p{font-size:18px;line-height:1.65}
+.montado-x{background:#FDECEF;border-left:5px solid var(--erro);border-radius:0 10px 10px 0;
+  padding:10px 13px;font-size:16px;font-weight:700;margin-top:10px}
+.montado-ok{background:#EAF6EC;border-left:5px solid var(--ok);border-radius:0 10px 10px 0;
+  padding:10px 13px;font-size:16px;font-weight:800;color:#1B6B08;margin-top:10px}
+.montado-bs{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 .afirma{background:#fff;border:2px solid var(--roxo);border-radius:12px;padding:12px 14px;margin-top:10px;font-size:17px;line-height:1.5}
 .croxo{background:#F3E9F6;border-left:6px solid var(--roxo);border-radius:0 14px 14px 0;padding:16px 18px;margin-bottom:12px}
 .claranja{background:#FDF0E3;border-left:6px solid var(--d4);border-radius:0 14px 14px 0;padding:12px 16px;margin-bottom:12px;font-size:16px}
 .cazul{background:#E8F0F8;border-left:6px solid #2E5C8A;border-radius:0 14px 14px 0;padding:12px 16px;margin-bottom:12px;font-size:16px}
+.tchip{background:#EAF3FB;border:none;border-bottom:2px solid #2E5C8A;color:#1B4A7A;
+  font-weight:800;font-size:inherit;font-family:inherit;padding:0 3px;border-radius:5px 5px 0 0;
+  cursor:pointer;line-height:inherit}
+.tchip:hover{background:#D4E7F7;color:#0E3358}
+.tchip.lido{background:#E3F5DE;border-bottom-color:#3E8C2E;color:#1B6B08}
+.dicagl{margin-top:10px;font-size:15px;color:var(--cinza);font-weight:700}
+.cfala{background:#F7F2FA;border-left:6px solid var(--roxo);border-radius:0 14px 14px 0;
+  padding:13px 16px;margin:12px 0}
+.cfala-t{font-size:17px;font-weight:900;color:var(--roxo);margin-bottom:6px}
 .balao{background:#F0E4F5;border:2px dashed var(--roxo);border-radius:14px;padding:13px 15px;margin:10px 0;font-style:italic;font-size:17px}
 .soteste{background:#FFE9EC;border:2px dashed #B3001B;border-radius:12px;padding:11px 14px;
   margin:10px 0;font-size:16px;font-weight:800;color:#B3001B}
@@ -112,6 +146,32 @@ p{font-size:17px;line-height:1.55;margin-bottom:10px}
 .rdeg .par{margin-left:auto;font-size:16px;font-weight:700}
 .bl{display:flex;align-items:center;gap:10px;color:#fff;border-radius:8px;padding:7px 13px;margin-bottom:4px;font-size:16px;font-weight:800}
 .mas{margin:0 auto 4px;color:#fff;border-radius:8px;padding:7px 10px;text-align:center;font-size:16px;font-weight:800}
+.gridq{display:grid;grid-template-columns:1fr 330px;gap:18px;align-items:start}
+.col-pri{display:flex;flex-direction:column}
+.col-lat{display:flex;flex-direction:column;gap:12px;position:sticky;top:70px}
+.cardlat{background:#fff;border-radius:18px;padding:20px 22px;box-shadow:0 8px 30px rgba(107,75,156,.18);
+  border-top:4px solid}
+.cardlat.cl-dica{border-top-color:#E07B2C}
+.cardlat.cl-glos{border-top-color:#C79A18}
+.cl-t{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;
+  margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid rgba(107,75,156,.12);
+  display:flex;align-items:center;gap:6px}
+.cl-dica .cl-t{color:#B05A1C}
+.cl-glos .cl-t{color:#8A6D00}
+.cl-c{font-size:15px;line-height:1.55;color:var(--tinta)}
+.cl-c p{margin:0 0 7px}
+.qmark{color:#D32F2F;font-weight:900;font-size:1.1em;margin-left:2px}
+@media(max-width:900px){.gridq{grid-template-columns:1fr}.col-lat{position:static}}
+.secalem{background:#fff;border-top:4px solid;border-radius:0 0 12px 12px;padding:13px 15px;margin-bottom:10px;
+  box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.secalem-t{font-size:16px;font-weight:900;margin-bottom:7px;padding-bottom:6px;border-bottom:1px solid #E7E7E7}
+.secalem-c{font-size:16px;line-height:1.6;color:var(--tinta)}
+.secalem-c p{margin:0 0 6px;padding-bottom:5px;border-bottom:1px dotted rgba(0,0,0,.08)}
+.secalem-c p:last-child{border-bottom:none;margin-bottom:0}
+.csoc{background:#F0F7EE;border-left:6px solid #2E6029;border-radius:0 14px 14px 0;padding:13px 16px;margin:12px 0}
+.csoc-t{font-size:17px;font-weight:900;color:#2E6029;margin-bottom:5px}
+.csoc-d{font-size:15px;font-weight:800;color:#4A7A44;margin-bottom:5px;text-transform:uppercase;letter-spacing:1px}
+.csoc p{font-size:16px;line-height:1.55;margin:0}
 .emcons{background:#fff;border:2px dashed var(--cinza);border-radius:11px;padding:11px 14px;margin-bottom:7px;font-size:16px;color:var(--cinza)}
 .emcons b{color:var(--tinta);display:block;margin-bottom:3px}
 
@@ -153,11 +213,15 @@ p{font-size:17px;line-height:1.55;margin-bottom:10px}
 .pane{display:none;background:var(--creme);border-radius:12px;padding:14px 16px;
   font-size:17px;line-height:1.55;margin-bottom:10px}
 .pane.on{display:block}
-.gchip.lido{background:#E3F5DE;border-color:var(--ok);color:#1B6B08}
+.gchip.lido{background:#E3F5DE;border-color:#3E8C2E;color:#1B6B08;box-shadow:0 2px 0 #3E8C2E}
 .gchip.lido::after{content:" ✓"}
 .gchip.chamando{box-shadow:0 0 0 3px rgba(228,200,106,.6)}
-.gchip{display:inline-block;background:var(--destaque);border:1px solid #E4C86A;border-radius:16px;
-  padding:4px 12px;margin:4px 5px 0 0;font-size:16px;font-weight:700;cursor:pointer}
+.gchip{display:inline-flex;align-items:center;gap:6px;background:#fff;border:2px solid #C79A18;
+  border-radius:18px;padding:7px 15px;margin:5px 6px 0 0;font-size:16px;font-weight:800;
+  color:#7A5C00;cursor:pointer;font-family:inherit;box-shadow:0 2px 0 #C79A18;transition:.12s}
+.gchip:hover{background:var(--destaque);transform:translateY(-1px);box-shadow:0 3px 0 #C79A18}
+.gchip:active{transform:translateY(2px);box-shadow:none}
+.gchip .glupa{font-size:15px}
 .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:90;padding:20px;overflow-y:auto}
 .modal.abre{display:block}
 .caixa{background:#fff;max-width:660px;margin:34px auto;border-radius:16px;padding:22px}
@@ -187,10 +251,12 @@ p{font-size:17px;line-height:1.55;margin-bottom:10px}
 .legend{font-size:16px;color:var(--cinza);margin-top:10px;line-height:1.6}
 
 /* ---------- alternativas ---------- */
-.alt{display:block;width:100%;text-align:left;background:#fff;border:2.5px solid var(--borda);border-radius:14px;
+.alt{display:flex;gap:12px;align-items:flex-start;background:var(--creme);border:3px solid transparent;
+  border-radius:14px;padding:18px 20px;font-size:17px;line-height:1.6;transition:all .15s;display:block;width:100%;text-align:left;background:#fff;border:2.5px solid var(--borda);border-radius:14px;
   padding:14px 16px;margin-bottom:9px;font-size:17px;line-height:1.45;cursor:pointer;font-family:inherit}
-.alt:hover{border-color:var(--roxo);background:var(--creme)}
+.alt:hover{border-color:var(--roxo);background:var(--roxo-claro);border-color:var(--roxo);background:var(--creme)}
 .alt .let{display:inline-block;font-weight:900;color:var(--roxo);min-width:26px}
+.alt .frase{flex:1}
 .alt.vf{display:flex;align-items:center;gap:12px;font-size:19px;letter-spacing:1px;padding:16px 18px}
 .alt.vf .vfm{font-size:22px;line-height:1}
 .alt.vf.v{border-color:#26890C;color:#1B6B08}
@@ -204,10 +270,29 @@ p{font-size:17px;line-height:1.55;margin-bottom:10px}
 .veredito.no{background:#FDECEF;color:var(--erro)}
 .btn{display:block;width:100%;padding:14px;border:none;border-radius:13px;background:var(--verde-esc);
   color:#fff;font-size:17px;font-weight:800;cursor:pointer;font-family:inherit;margin-top:10px}
+.abasaj{display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 0}
+.aba.aj{border:2px solid #4C7BAE;background:transparent;color:#9FD0F7;font-size:16px;
+  padding:7px 16px;border-radius:18px;font-weight:800;white-space:nowrap}
+.aba.aj:hover{border-color:#7FC4FF;color:#DCE9F7}
+.aba.aj.on{background:#7FC4FF;color:#0E1D2E;border-color:#7FC4FF}
+.aba.aj.fim{border-color:#5FBF4A;color:#BFE7B5}
+.aba.aj.on.fim{background:#7FC4FF;color:#0E1D2E}
+.fatia{display:flex;align-items:flex-start;gap:10px}
+.fatia .fnum{flex:0 0 24px;width:24px;height:24px;border-radius:50%;
+  background:#2C4E76;color:#DCE9F7;font-size:14px;font-weight:900;display:flex;
+  align-items:center;justify-content:center;margin-top:1px}
+.fatia .ftxt{flex:1}
+.fatia.ja{opacity:.75}
+.fatia.ok{background:#17402A;color:#BFE7B5;padding-left:16px;font-weight:800}
+.tcod{background:#0E1D2E;color:#7FE0A8;border:1px solid #2C4E76;border-radius:7px;
+  padding:2px 8px;font-family:Consolas,"Courier New",monospace;font-weight:800;font-size:16px}
+.fatia-tit{font-size:16px;font-weight:900;color:#7FC4FF;margin:12px 0 6px}
+.fatia.vazia{color:#8FB4D8;font-style:italic}
+.fatia-rel{font-size:15px;font-weight:800;color:#8FB4D8}
 .luri{background:#12233A;border-radius:14px;padding:14px 16px;margin:12px 0;color:#DCE9F7}
 .luri-t{font-size:17px;font-weight:900;color:#7FC4FF;margin-bottom:6px}
 .luri-s{font-size:16px;line-height:1.5;margin-bottom:10px;color:#B9D2EA}
-.luri-bs{display:flex;flex-direction:column;gap:8px}
+
 .lb{background:#1B3352;border:2px solid #2C4E76;color:#DCE9F7;border-radius:11px;
   padding:11px 14px;font-size:16px;font-weight:800;cursor:pointer;text-align:left;font-family:inherit}
 .lb:hover{border-color:#7FC4FF}
@@ -216,8 +301,10 @@ p{font-size:17px;line-height:1.55;margin-bottom:10px}
 .fatia-nav{display:flex;align-items:center;gap:10px;margin-top:10px}
 .fatia-cont{font-size:16px;font-weight:800;color:#8FB4D8}
 .btnaj{margin-left:auto;background:#2C4E76;border:none;color:#fff;border-radius:11px;
-  padding:10px 18px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit}
+  padding:10px 18px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;transition:.2s}
 .btnaj.ok{background:#2F7D32}
+.btnaj[disabled]{background:#33414F;color:#7E8B98;cursor:not-allowed}
+.btnaj.ok[disabled]{background:#33414F;color:#7E8B98}
 .travaj{background:var(--destaque);border-left:5px solid #E4C86A;border-radius:0 10px 10px 0;
   padding:10px 13px;font-size:16px;font-weight:800;margin-top:10px}
 .alt.travada{opacity:.55;cursor:not-allowed}
@@ -284,25 +371,27 @@ p{font-size:17px;line-height:1.55;margin-bottom:10px}
 
 
 
+<div id="statusbar">
+  <span class="chip ver" id="stVer">—</span>
+  <span class="chip deg" id="stDeg">—</span>
+  <span class="chip" id="stNome">Estudante: —</span>
+  <span class="chip" id="stTurma">Turma: —</span>
+  <span class="chip rod" id="stRodada">Rodada 1</span>
+  <span class="chip tent" id="stTent">Tentativa 1</span>
+  <span class="chip tela" id="stTela">Tela 1</span>
+  <span class="chip tema" id="stTema"></span>
+  <span class="chip nav" id="stNav"></span>
+  <span class="chip" id="stHora">🕐 --:--</span>
+  <span class="chip sai" id="stSaidas">👁️ Saídas: 0</span>
+</div>
+
 <div id="idbar">
   <div>
     <div class="l1">Revisão · 8º ano · 3º bimestre</div>
     <div class="l2">Lógica de programação: fundamentos e desafios em Python</div>
     <div class="l3">E.E. Dr. Benedicto Martins Barbosa · professor Marcos</div>
   </div>
-  <button class="minibtn" onclick="pedirTelaCheia()">⛶ Tela cheia</button>
-</div>
-
-<div id="statusbar">
-  <span class="chip ver" id="stVer">—</span>
-  <span class="chip deg" id="stDeg">—</span>
-  <span class="chip" id="stNome">Estudante: —</span>
-  <span class="chip" id="stTurma">Turma: —</span>
-  <span class="chip tent" id="stTent">Tentativa 1</span>
-  <span class="chip tela" id="stTela">Tela 1</span>
-  <span class="chip" id="stHora">🕐 --:--</span>
-  <span class="chip" id="stRelogio">⏱ 00:00</span>
-  <span class="chip sai" id="stSaidas">⛶ Saídas: 0</span>
+  <button class="minibtn" onclick="pedirTelaCheia()">🖥️ Tela cheia</button>
 </div>
 
 <div id="trilhabar" style="display:none"></div>
@@ -336,7 +425,7 @@ p{font-size:17px;line-height:1.55;margin-bottom:10px}
 /* ==================== MODO ==================== */
 const MODO_TESTE = false;
 const UNIDADE = "Lógica de programação: fundamentos e desafios em Python";
-const VERSAO = "V.05.04";
+const VERSAO = "V.10.01";
 /* ---- selo de conferência · dificulta adulterar o placar ---- */
 function hashTexto(s){
   let h=5381;
@@ -903,6 +992,16 @@ const BANCO = [
   {t:"for", d:"Repete uma quantidade conhecida de vezes. Não atende este caso."}
  ],
  d1:{p:"Segundo o enunciado, qual palavra encerra o cadastro?",
+     partes:{ok:["O programa deve usar um laço while",
+            "A estrutura indicada é o laço while",
+            "O cadastro deve ser feito com um while",
+            "É preciso usar a repetição while",
+            "O caminho é montar um laço while"],
+           no:["O programa deve usar um laço for",
+            "A estrutura indicada é o if com else",
+            "O cadastro deve ser feito com uma lista pronta",
+            "É preciso usar uma variável simples",
+            "O caminho é montar uma matriz de nomes"]},
      ok:["A palavra fim, digitada pelo responsável.",
          "fim, como está escrito no enunciado.",
          "A palavra fim, que encerra o cadastro."],
@@ -910,6 +1009,16 @@ const BANCO = [
          "O número zero, digitado no lugar do nome.",
          "A palavra pare, gritada para o computador."]},
  d2:{p:"Como se chama a estrutura que repete enquanto a condição continua verdadeira?",
+     partes:{ok:["que repete enquanto a pessoa não digitar fim",
+            "que continua rodando até alguém digitar fim",
+            "que só para quando a palavra fim é digitada",
+            "que segue enquanto a resposta for diferente de fim",
+            "que se repete até chegar a palavra fim"],
+           no:["que repete exatamente cinco vezes",
+            "que roda uma única vez por evento",
+            "que para quando a lista fica cheia",
+            "que repete o número de voltas escrito antes",
+            "que termina no horário marcado do evento"]},
      ok:["O laço while, que repete por condição.",
          "Repetição por condição, chamada de while.",
          "While: repete enquanto a condição vale."],
@@ -917,6 +1026,16 @@ const BANCO = [
          "A lista, que guarda os nomes em posições.",
          "O for, que conta as voltas antes de rodar."]},
  d3:{p:"Cinco visitantes chegam e o sexto digita fim. Quantas voltas o laço deu?",
+     partes:{ok:["porque não se sabe antes quantos visitantes vão chegar",
+            "porque a quantidade de nomes não é conhecida no começo",
+            "porque ninguém consegue prever quantas pessoas virão",
+            "porque o total de visitantes muda a cada evento",
+            "porque a quantidade só se descobre no fim"],
+           no:["porque o número de visitantes é sempre o mesmo",
+            "porque a lista já vem preenchida do portão",
+            "porque o evento tem um limite fixo de pessoas",
+            "porque o programa conta os nomes antes de começar",
+            "porque a quantidade está escrita no código"]},
      ok:["Seis: cinco nomes e a volta em que veio o fim.",
          "Seis voltas, porque o fim só aparece na última.",
          "Seis, contando a volta que encerrou o cadastro."],
@@ -924,6 +1043,16 @@ const BANCO = [
          "Uma, porque o while roda uma única vez sempre.",
          "Nenhuma, porque a palavra fim cancela as voltas."]},
  d4:{p:"O colega disse que dá para usar for porque sempre entra a mesma quantidade. O que derruba?",
+     partes:{ok:["e a cada volta o programa recebe um nome e registra",
+            "e em cada repetição ele guarda o nome digitado",
+            "e a cada rodada um novo visitante é cadastrado",
+            "e em toda volta o nome entra no cadastro",
+            "e a cada passagem o programa anota mais um nome"],
+           no:["e a cada volta o programa apaga o nome anterior",
+            "e em cada repetição ele mostra a lista inteira",
+            "e a cada rodada o programa reinicia o cadastro",
+            "e em toda volta ele soma um ponto ao visitante",
+            "e a cada passagem o programa ordena os nomes"]},
      ok:["Não se sabe antes quantos nomes serão registrados.",
          "O cadastro continua enquanto ninguém digitar fim.",
          "O for exige o total de voltas, e esse total não existe."],
@@ -931,6 +1060,16 @@ const BANCO = [
          "Nada: o for também para quando alguém digita fim.",
          "Nada: a lista de visitantes já vem pronta do portão."]},
  d5:{p:"Por que o laço while é uma técnica adequada para resolver esse problema de cadastro?",
+     partes:{ok:["até que a palavra fim encerre o cadastro",
+            "até a palavra fim fechar o registro",
+            "encerrando quando fim for digitado",
+            "e o cadastro termina com a palavra fim",
+            "parando assim que a palavra fim aparece"],
+           no:["até que o programa fique sem memória",
+            "até o horário do evento terminar",
+            "encerrando quando alguém fechar a janela",
+            "e o cadastro termina depois de cinco nomes",
+            "parando assim que o primeiro nome é digitado"]},
      alts:["Porque o cadastro precisa continuar enquanto a pessoa não digitar fim, e não é possível saber antes quantos nomes serão registrados.",
            "Porque o número de visitantes é sempre conhecido antes de o evento começar.",
            "Porque o while organiza os nomes em ordem alfabética durante o cadastro.",
@@ -938,6 +1077,140 @@ const BANCO = [
      cert:0}
 }
 ];
+
+/* ---- abas extras do glossário · 8º ano ---- */
+const EXTRA = {
+ "input()":{serve:"Serve para o programa receber uma informação de quem está usando.",
+   ex:"input(\"Quantos jogos?\") espera a pessoa digitar e apertar enter."},
+ "str":{serve:"Serve para guardar texto: nomes, frases, respostas digitadas.",
+   ex:"\"3\" é str; parece número, mas é texto."},
+ "int":{serve:"Serve para contagens, que não têm metade nem vírgula.",
+   ex:"5 jogos, 12 alunos, 3 tentativas."},
+ "float":{serve:"Serve para valores quebrados, como preço e medida.",
+   ex:"19.90 e 36.7 são float."},
+ "converter":{serve:"Serve para transformar texto em número antes de calcular.",
+   ex:"int(\"7\") vira o número 7 e já dá para somar."},
+ "entrada":{serve:"Serve para o programa saber com quais dados vai trabalhar.",
+   ex:"Perguntar quantos participantes vão à excursão."},
+ "processamento":{serve:"Serve para transformar o que entrou no que vai sair.",
+   ex:"Dividir o valor total pelo número de participantes."},
+ "saída":{serve:"Serve para mostrar o resultado a quem está usando.",
+   ex:"print(\"Cada um paga 50 reais\")."},
+ "algoritmo":{serve:"Serve para descrever a solução passo a passo, na ordem certa.",
+   ex:"Receber, calcular e mostrar: três passos em sequência."},
+ "valor individual":{serve:"Serve para saber quanto cabe a cada um na divisão.",
+   ex:"250 reais divididos por 5 pessoas dá 50 para cada."},
+ "if":{serve:"Serve para executar um trecho só quando a condição for verdadeira.",
+   ex:"if vagas > 0: mostra a mensagem de vaga livre."},
+ ">":{serve:"Serve para perguntar se um valor é maior que o outro.",
+   ex:"5 > 3 devolve verdadeiro; 0 > 0 devolve falso."},
+ "vagas":{serve:"Serve para o programa lembrar quantas vagas ainda existem.",
+   ex:"vagas = 0 significa estacionamento lotado."},
+ "print()":{serve:"Serve para escrever na tela um resultado que o programa já tem.",
+   ex:"print(\"Há vagas disponíveis\")."},
+ "condição falsa":{serve:"Serve para o programa pular o trecho que não se aplica.",
+   ex:"Com vagas valendo 0, o teste dá falso e nada é exibido."},
+ "if...else":{serve:"Serve para garantir uma saída para cada um dos dois casos.",
+   ex:"Tem pontos, troca o prêmio; não tem, avisa que faltam."},
+ "decidir":{serve:"Serve para o programa escolher sozinho, sem alguém dizer na hora.",
+   ex:"A catraca decide se libera ou trava, olhando o saldo."},
+ "caso contrário":{serve:"Serve para nomear o segundo caminho da decisão.",
+   ex:"Se acertou, parabéns; caso contrário, tente de novo."},
+ "estrutura de controle":{serve:"Serve para mandar no caminho que o programa vai seguir.",
+   ex:"O if decide o caminho; o while decide quantas voltas."},
+ "duas ações":{serve:"Serve para lembrar que a decisão tem dois finais possíveis.",
+   ex:"Autorizar a troca ou avisar que faltam pontos."},
+ ">=":{serve:"Serve para aceitar também o valor exato do limite.",
+   ex:"idade >= 16 aceita quem tem 16 em ponto."},
+ "else":{serve:"Serve para atender quem não passou no teste do if.",
+   ex:"else: print(\"Participação não autorizada\")."},
+ "idade":{serve:"Serve para guardar a idade e comparar com o limite.",
+   ex:"idade = 15 não alcança o limite de 16."},
+ "dois caminhos":{serve:"Serve para separar o que acontece em cada resultado.",
+   ex:"Um caminho para o autorizado, outro para o não autorizado."},
+ "lista":{serve:"Serve para guardar vários valores relacionados sob um nome só.",
+   ex:"notas = [7, 8, 6, 9] guarda as quatro avaliações."},
+ "variável":{serve:"Serve para o programa guardar algo que vai usar depois.",
+   ex:"total = 0 começa a soma em zero."},
+ "estrutura":{serve:"Serve para escolher o jeito certo de guardar cada tipo de dado.",
+   ex:"Lista para várias notas; variável simples para uma idade."},
+ "crescer":{serve:"Serve para lembrar que a lista aceita itens novos depois.",
+   ex:"Começa com três filmes e passa a ter quatro."},
+ "automático":{serve:"Serve para o programa resolver sozinho o que alguém teria de digitar.",
+   ex:"O laço soma trinta vendas sem trinta linhas de código."},
+ "append()":{serve:"Serve para acrescentar um item no fim da lista.",
+   ex:"filmes.append(\"Animação\") põe Animação por último."},
+ "remove()":{serve:"Serve para tirar da lista um item que você nomeia.",
+   ex:"filmes.remove(\"Comédia\") apaga Comédia da lista."},
+ "pop()":{serve:"Serve para tirar o último item, sem precisar dizer qual é.",
+   ex:"filmes.pop() remove o que estiver no fim."},
+ "filmes[0]":{serve:"Serve para pegar um item pelo lugar que ele ocupa.",
+   ex:"filmes[0] devolve Aventura, o primeiro da lista."},
+ "final da lista":{serve:"Serve para saber onde o item novo vai parar.",
+   ex:"O append sempre coloca depois do último."},
+ "título":{serve:"Serve para guardar o nome de cada obra na lista.",
+   ex:"\"Dom Casmurro\" é um título dentro da lista de livros."},
+ "item":{serve:"Serve para falar de um valor guardado dentro da lista.",
+   ex:"Cada livro da prateleira é um item."},
+ "vários valores":{serve:"Serve para justificar o uso de lista em vez de variáveis soltas.",
+   ex:"Quarenta títulos numa lista, não quarenta variáveis."},
+ "organizar":{serve:"Serve para achar depois o que foi guardado.",
+   ex:"Guardar as medições em ordem, do começo ao fim do dia."},
+ "conjunto de informações":{serve:"Serve para tratar dados relacionados como uma coisa só.",
+   ex:"As doze temperaturas do dia, juntas."},
+ "medição":{serve:"Serve para guardar cada leitura feita pelo sensor.",
+   ex:"23.4 graus às nove da manhã é uma medição."},
+ "variável por medição":{serve:"Serve como contraexemplo: mostra o que NÃO fazer.",
+   ex:"temp1, temp2, temp3… até temp12 é trabalho repetido."},
+ "adequada":{serve:"Serve para escolher a estrutura que resolve melhor o problema.",
+   ex:"Lista para doze medições; variável para uma só."},
+ "laço de repetição":{serve:"Serve para repetir a mesma ação sem escrever a linha várias vezes.",
+   ex:"Somar trinta vendas com o mesmo comando."},
+ "percorrer":{serve:"Serve para passar por todos os itens, um de cada vez.",
+   ex:"Ler a lista de chamada do primeiro ao último nome."},
+ "automatizar":{serve:"Serve para o programa fazer o trabalho repetido no seu lugar.",
+   ex:"O caixa soma item por item sem você repetir a conta."},
+ "elemento":{serve:"Serve para falar de cada valor dentro da lista.",
+   ex:"Na lista [8, 6, 10], o 6 é o segundo elemento."},
+ "total arrecadado":{serve:"Serve para guardar a soma final das vendas.",
+   ex:"Depois do laço, total guarda o valor de todas juntas."},
+ "while":{serve:"Serve quando não se sabe antes quantas voltas serão necessárias.",
+   ex:"O menu volta até o cliente escolher Sair."},
+ "for":{serve:"Serve quando a quantidade de voltas já é conhecida.",
+   ex:"Percorrer uma lista de dez notas, do primeiro ao último."},
+ "condição de parada":{serve:"Serve para o laço saber a hora de terminar.",
+   ex:"Parar quando a pessoa digitar a palavra fim."},
+ "quantidade desconhecida":{serve:"Serve para justificar o while no lugar do for.",
+   ex:"Ninguém sabe quantos visitantes vão chegar ao evento."},
+ "estrutura de repetição":{serve:"Serve para fazer a mesma coisa várias vezes com um comando só.",
+   ex:"Percorrer as pontuações e somar cada uma."},
+ "somar":{serve:"Serve para juntar os valores num total.",
+   ex:"8 mais 6, mais 10, mais 4 dá 28."},
+ "variar":{serve:"Serve para lembrar que a quantidade pode mudar entre uma vez e outra.",
+   ex:"Cinco partidas neste campeonato, oito no próximo."},
+ "manutenção":{serve:"Serve para medir se o código dará trabalho depois.",
+   ex:"Com laço, mudar a lista não exige mexer no código."},
+ "laço":{serve:"Serve como o nome curto da estrutura de repetição.",
+   ex:"O laço roda uma vez para cada item da lista."},
+ "acessar":{serve:"Serve para pegar o valor que está guardado numa posição.",
+   ex:"pontuacoes[2] devolve o terceiro valor."},
+ "repetição":{serve:"Serve para não escrever a mesma linha muitas vezes.",
+   ex:"Uma linha resolve dez itens ou trinta."},
+ "comando diferente":{serve:"Serve como contraexemplo: mostra o que NÃO fazer.",
+   ex:"Escrever um acesso por elemento anula o ganho do laço."},
+ "total = 0":{serve:"Serve para começar a soma do zero, antes de acumular.",
+   ex:"Sem isso, o programa não sabe de onde partir."},
+ "len()":{serve:"Serve para descobrir quantos itens a lista tem.",
+   ex:"len([8, 6, 10, 4]) devolve 4."},
+ "range()":{serve:"Serve para gerar a sequência de voltas do for.",
+   ex:"range(4) dá as posições 0, 1, 2 e 3."},
+ "pontuacoes[i]":{serve:"Serve para pegar o valor da volta atual do laço.",
+   ex:"Quando i vale 2, devolve o terceiro valor da lista."},
+ "print(total)":{serve:"Serve para mostrar só o resultado, não a lista inteira.",
+   ex:"Aparece 28, e não [8, 6, 10, 4]."},
+ "cadastro":{serve:"Serve para guardar os nomes que vão chegando no evento.",
+   ex:"Cada nome digitado entra no cadastro até vir a palavra fim."}
+};
 
 
 const PREMIOS=[
@@ -1015,7 +1288,7 @@ const POLYA=[
  {n:1,nome:"Compreender o problema",o:"ler, achar os dados e saber o que se pede"},
  {n:2,nome:"Elaborar um plano",o:"escolher a regra ou o caminho que resolve"},
  {n:3,nome:"Executar o plano",o:"aplicar e ver o que acontece"},
- {n:4,nome:"Fazer a retrospectiva",o:"conferir, julgar e explicar por quê"}
+ {n:4,nome:"Fazer a retrospectiva",o:"conferir a solução e explicar por quê"}
 ];
 const CINCO={
  ONDE:"ONDE está a informação",
@@ -1112,6 +1385,34 @@ function pintarPython(src){
   }).join("\n");
 }
 
+let RODADA=1;
+function chaveProg(){ return CHAVE+"_prog" }
+function salvarProgresso(){
+  if(!estudante) return;
+  try{
+    localStorage.setItem(chaveProg(),JSON.stringify({
+      estudante:estudante,turma:turma,iTela:iTela,registro:registro,
+      rodada:RODADA,saidas:saidasTC,quando:Date.now(),
+      inicio:horaInicio?horaInicio.getTime():Date.now()
+    }));
+  }catch(e){}
+}
+function lerProgresso(){
+  try{ return JSON.parse(localStorage.getItem(chaveProg()))||null }catch(e){ return null }
+}
+function limparProgresso(){ try{ localStorage.removeItem(chaveProg()) }catch(e){} }
+function retomar(){
+  const p=lerProgresso(); if(!p) return;
+  estudante=p.estudante; turma=p.turma; registro=p.registro||{};
+  RODADA=p.rodada||1; saidasTC=p.saidas||0;
+  horaInicio=new Date(p.inicio||Date.now());
+  iTela=p.iTela||0; tentAtual=1;
+  render();
+}
+function comecarDoZero(){
+  limparProgresso();
+  const p=document.getElementById("retomada"); if(p) p.remove();
+}
 function lerDados(){try{return JSON.parse(localStorage.getItem(CHAVE))||{}}catch(e){return {}}}
 function gravarDados(d){try{localStorage.setItem(CHAVE,JSON.stringify(d))}catch(e){}}
 function pedirTelaCheia(){const e=document.documentElement;if(e.requestFullscreen)e.requestFullscreen().catch(function(){})}
@@ -1123,7 +1424,7 @@ document.addEventListener("fullscreenchange",function(){
     saidasTC++;avisoAberto=true;
     document.getElementById("contTC").textContent=saidasTC;
     document.getElementById("avisoTC").classList.add("abre");
-    document.getElementById("stSaidas").textContent="⛶ Saídas: "+saidasTC;
+    document.getElementById("stSaidas").textContent="👁️ Saídas: "+saidasTC;
   }
 });
 
@@ -1258,13 +1559,16 @@ function abrirLista(){
       h+='<div class="grupolista"><div class="cab" style="background:'+ca+
          ';color:#fff;border-radius:8px;padding:5px 12px;letter-spacing:1px">'+g.toUpperCase()+'</div>'}
     const f=formaDe(r);
-    const feita=(r.t==="perg"&&registro[r.n]);
+    const feita=(r.t==="perg")?!!registro[r.n]:(i<iTela);
     const aqui=(i===iTela);
-    let cls="ll"+(feita?" feita":"")+(aqui?" aqui":"")+(MODO_TESTE?" clic":"");
+    // tela já vista que não é pergunta pode ser revisitada
+    const revisitar=(!aqui&&i<iTela&&r.t!=="perg");
+    let cls="ll"+(feita?" feita":"")+(aqui?" aqui":"")+((MODO_TESTE||revisitar)?" clic":"");
     const fundo=r.aula?corAula(r.aula)+"14":"#FFFFFF";
     let fim=aqui?'<span class="fim">VOCÊ ESTÁ AQUI ▶</span>':
+            (revisitar?'<span class="fim">✅ rever</span>':
             (feita?'<span class="fim">✅</span>':
-            ((!MODO_TESTE&&!liberado)?'<span class="fim">🔒</span>':''));
+            ((!MODO_TESTE&&!liberado)?'<span class="fim">🔒</span>':'')));
     let pil='';
     if(r.t==="perg"){
       const d=degrauDaTela(r);
@@ -1292,7 +1596,7 @@ function abrirLista(){
     } else if(r.t==="abertura"){ pil='<span class="pill cat">identificação</span>';
     } else if(r.t==="chk"||r.t==="final"){ pil='<span class="pill cat">placar</span>'; }
     h+='<div class="'+cls+'" style="border-left:8px solid '+f.c+';background:'+
-       (feita?'#E3F5DE':(aqui?'#F3E9F6':fundo))+'" '+(MODO_TESTE?'onclick="pular('+i+')"':'')+'>'+
+       (feita?'#E3F5DE':(aqui?'#F3E9F6':fundo))+'" '+((MODO_TESTE||revisitar)?'onclick="pular('+i+')"':'')+'>'+
        '<span class="forma" style="color:'+f.c+'">'+f.s+'</span>'+
        '<span class="lltxt"><b>tela '+(i+1)+'</b> · '+rotuloTela(r)+'<br>'+pil+'</span>'+
        fim+'</div>';
@@ -1350,14 +1654,35 @@ function desenharTrilha(){
 
 function atualizarStatus(){
   const v=document.getElementById("stVer"); if(v) v.textContent=VERSAO;
+  const rd=document.getElementById("stRodada"); if(rd) rd.textContent="Rodada "+RODADA;
   const r=roteiro[iTela];
+  const ct=document.getElementById("stTema"), cn=document.getElementById("stNav");
+  if(ct&&cn){
+    if(r&&r.t==="perg"){
+      const q=BANCO[r.qi], nv=NAV_DEG[DEGRAUS[r.deg].cod];
+      ct.textContent="tema "+q.ordem+"/"+BANCO.length;
+      ct.title="tema "+q.ordem+" de "+BANCO.length; ct.style.display="";
+      if(nv){ cn.textContent=nv.emo+" "+nv.n;
+              cn.title=nv.n+" · "+nv.nome;
+              cn.style.borderColor=nv.cor; cn.style.color=nv.cor; cn.style.display="" }
+      else cn.style.display="none";
+    } else { ct.style.display="none"; cn.style.display="none" }
+  }
   document.getElementById("stNome").textContent="Estudante: "+(estudante||"—");
   document.getElementById("stTurma").textContent="Turma: "+(turma||"—");
   document.getElementById("stTent").textContent="Tentativa "+tentAtual;
   document.getElementById("stTela").textContent="Tela "+(iTela+1)+" de "+roteiro.length;
-  document.getElementById("stSaidas").textContent="⛶ Saídas: "+saidasTC;
-  document.getElementById("stDeg").textContent=
-    (r&&r.t==="perg")?(DEGRAUS[r.deg].cod+" · "+DEGRAUS[r.deg].nome):"—";
+  document.getElementById("stSaidas").textContent="👁️ Saídas: "+saidasTC;
+  const cd=document.getElementById("stDeg");
+  const CAT={abertura:"identificação",conviv:"o combinado",capa:"capa da aula",
+             chk:"placar parcial",final:"placar final"};
+  if(r&&r.t==="perg"){
+    cd.textContent=DEGRAUS[r.deg].cod+" · "+DEGRAUS[r.deg].nome;
+    cd.classList.remove("cat"); cd.style.display="";
+  } else {
+    cd.textContent=(r&&CAT[r.t])?CAT[r.t]:"";
+    cd.classList.add("cat"); cd.style.display=cd.textContent?"":"none";
+  }
 }
 
 /* ==================== NOTAS ==================== */
@@ -1370,14 +1695,15 @@ function n2(x){return x.toFixed(2).replace(".",",")}
 
 /* ==================== RENDER ==================== */
 function render(){
-  const r=roteiro[iTela];if(!r)return;
+  const r=roteiro[iTela];
+  salvarProgresso();if(!r)return;
   if(r.t==="abertura") telaAbertura();
   else if(r.t==="conviv") telaConvivencia();
   else if(r.t==="capa") telaCapa(r);
   else if(r.t==="perg") telaPergunta(r);
   else if(r.t==="chk") telaCheckpoint(r);
   else if(r.t==="final") telaFinal();
-  atualizarStatus();desenharTrilha();pintarRodape();
+  atualizarStatus();desenharTrilha();pintarRodape();salvarProgresso();
   try{ if(typeof window!=="undefined"&&window.scrollTo) window.scrollTo(0,0) }catch(e){}
 }
 function avancar(){
@@ -1394,6 +1720,20 @@ function cardR(cor,emo,tit,txt){
   return '<div class="cardr" style="border-color:'+cor+'">'+
          '<div class="cardr-t" style="color:'+cor+'"><span>'+emo+'</span>'+tit+'</div>'+
          '<div class="cardr-x">'+txt+'</div></div>';
+}
+function cardRetomada(){
+  const p=lerProgresso();
+  if(!p||!p.registro||Object.keys(p.registro).length===0) return "";
+  const n=Object.keys(p.registro).length;
+  const tela=(p.iTela||0)+1;
+  return '<div class="retom" id="retomada">'+
+    '<div class="retom-t">🔁 Você já tinha começado</div>'+
+    '<p>Encontrei uma revisão em andamento neste computador: <b>'+p.estudante+'</b>, turma <b>'+
+    p.turma+'</b>, na tela <b>'+tela+'</b>, com <b>'+n+'</b> perguntas já respondidas.</p>'+
+    '<div class="retom-bs">'+
+    '<button class="btn" onclick="retomar()">Continuar de onde parei</button>'+
+    '<button class="btn zero" onclick="comecarDoZero()">Começar do zero</button>'+
+    '</div></div>';
 }
 function telaAbertura(){
   function pastDeg(d,fig){
@@ -1415,7 +1755,7 @@ function telaAbertura(){
   'São <b>'+totalDoBanco()+' perguntas</b> no total.</p>'+
   TXT_ORIGEM()+
   '<div class="campo"><label for="inNome">Seu nome completo</label>'+
-  '<input id="inNome" type="text" placeholder="Digite seu nome" autocomplete="off" oninput="pintarRodape()"></div>'+
+  '<input id="inNome" type="text" placeholder="Digite seu nome" autocomplete="off" oninput="nomeDigitado()"></div>'+
   '<div class="campo"><label>Sua turma</label><div class="turmagrid">'+botoesTurma()+'</div></div>'+
   '<div class="cards">'+
   cardR("#7B2D8E","🧭","Como você anda","Só existe um caminho: o botão da barra de baixo. Voltar e refazer não dá, e a lista completa abre no fim.")+
@@ -1425,6 +1765,7 @@ function telaAbertura(){
   cardR("#2E5C8A","📖","As pastilhas","Toda palavra difícil tem pastilha. Ela abre em abas e você precisa ler todas antes de fechar.")+
   cardR("#D32F2F","🏁","O placar","A cada "+CHECKPOINT+" perguntas aparece um placar parcial. No fim vem o placar completo, com o código de conferência.")+
   '</div>'+
+  cardRetomada()+
   legendaPastilhas()+
   cardPremiacao(null)+
   '<div id="chamada"></div></div>';
@@ -1443,6 +1784,11 @@ function marcarTurma(){
     b.style.background=sel?c.f:c.b;
     b.style.color=sel?"#fff":c.f;
   });
+}
+function nomeDigitado(){
+  const c=document.getElementById("inNome");
+  estudante=c?c.value.trim():"";
+  atualizarStatus();pintarRodape();
 }
 function escolherTurma(l){turma="8º"+l;marcarTurma();atualizarStatus();pintarRodape()}
 
@@ -1582,14 +1928,28 @@ function cartoes(q,r){
      '<div class="bl" style="background:'+nav.cor+'"><b>'+nav.num+'</b> '+nav.nome+'</div></div>';
 
   h+='<div class="painel" id="p3">'+
-     '<div class="emcons"><b>Temas transversais</b>em construção</div>'+
-     '<div class="emcons"><b>Agenda 2030 · ODS</b>em construção</div>'+
-     '<div class="emcons"><b>Projetos interdisciplinares possíveis</b>em construção</div>'+
-     '<div class="emcons"><b>Citações</b>em construção</div>'+
-     '<p style="font-size:16px;color:var(--cinza);margin-top:8px">Esta seção é preenchida em chat próprio.</p></div>';
+     secAlem(q,"🧩 Conteúdos das matérias integradas","materias","#2E6029")+
+     secAlem(q,"👥 Profissionais envolvidos","profis","#B05A1C")+
+     secAlem(q,"🎯 Agenda 2030 · ODS","ods","#1F4068")+
+     secAlem(q,"🚀 PEI · protagonismo, quatro pilares e projeto de vida","pei","#4A2C7D")+
+     secAlem(q,"❝ Citações","cit","#7A2828")+
+     '<p style="font-size:16px;color:var(--cinza);margin-top:8px">'+
+     'As seções em construção são preenchidas em chat próprio.</p></div>';
   return h;
 }
 
+function secAlem(q,titulo,campo,cor){
+  const v=(q.alem&&q.alem[campo])?q.alem[campo]:null;
+  let h='<div class="secalem" style="border-top-color:'+cor+'">'+
+        '<div class="secalem-t" style="color:'+cor+'">'+titulo+'</div>';
+  h+= (v&&v.length)
+      ? '<div class="secalem-c">'+v.map(function(x){return '<p>'+x+'</p>'}).join("")+'</div>'
+      : '<div class="secalem-c emcons">em construção</div>';
+  return h+'</div>';
+}
+function pergComEmoji(t){
+  return String(t||"").replace(/\?\s*$/,'<span class="qmark">❓</span>');
+}
 /* ==================== PERGUNTA ==================== */
 /* ---- pares casados por tamanho ----
    Regra: dentro do par mostrado, a diferenca de caracteres entre a certa e a
@@ -1637,7 +1997,9 @@ function parOficialVF(deg,t,qi){
     // as questões que já nascem verdadeiro ou falso: a afirmação é a fala do colega
     const ehV=(deg.cert===0);
     const alts=(Math.random()<0.5)?["Verdadeiro","Falso"]:["Falso","Verdadeiro"];
-    return {alts:alts,cert:alts.indexOf(ehV?"Verdadeiro":"Falso"),afirma:null};
+    const q=BANCO[qi];
+    return {alts:alts,cert:alts.indexOf(ehV?"Verdadeiro":"Falso"),
+            afirma:(q&&q.fala)?q.fala:null};
   }
   const ch="vf_"+qi;
   if(!CACHE_VF[ch]){
@@ -1654,15 +2016,56 @@ function parOficialVF(deg,t,qi){
   const pos=alts.indexOf(ehCerta?"Verdadeiro":"Falso");
   return {alts:alts,cert:pos,afirma:deg.alts[idx]};
 }
+/* ==================== DISCURSIVA MONTADA POR PARTES ==================== */
+let MONTAGEM={};   // guarda a parte escolhida em cada degrau da discursiva
+function parPartes(deg,chave){
+  const opc=[];
+  deg.partes.ok.forEach(function(t,i){ opc.push({t:t,ok:true,i:i}) });
+  deg.partes.no.forEach(function(t,i){ opc.push({t:t,ok:false,i:i}) });
+  // embaralha uma vez por degrau e guarda, para nao trocar a cada tentativa
+  if(!CACHE_PARES["p_"+chave]){
+    for(let k=opc.length-1;k>0;k--){ const j=Math.floor(Math.random()*(k+1)); const x=opc[k];opc[k]=opc[j];opc[j]=x }
+    CACHE_PARES["p_"+chave]=opc;
+  }
+  const lista=CACHE_PARES["p_"+chave];
+  return {alts:lista.map(function(o){return o.t}),
+          cert:lista.findIndex(function(o){return o.ok}),
+          certos:lista.map(function(o){return o.ok}),
+          partes:true};
+}
+function textoMontado(q){
+  const degs=degrausDe(q);
+  let h='<div class="montado"><div class="montado-t">📝 A sua resposta, montada por você</div><p>';
+  degs.forEach(function(d,i){
+    const m=MONTAGEM[q.of+"_"+d];
+    if(!m) return;
+    h+='<b style="color:'+(m.ok?"#1B6B08":"#B3001B")+'">'+m.texto+'</b>'+(i<degs.length-1?" ":"");
+  });
+  h+='</p>';
+  const errados=degs.filter(function(d){ const m=MONTAGEM[q.of+"_"+d]; return m&&!m.ok });
+  if(errados.length){
+    h+='<div class="montado-x">As partes em vermelho não fecham o sentido. '+
+       'Volte só nelas: as dez opções continuam disponíveis.</div>'+
+       '<div class="montado-bs">';
+    errados.forEach(function(d){
+      const idx=roteiro.findIndex(function(x){return x.t==="perg"&&BANCO[x.qi].of===q.of&&x.deg===d});
+      h+='<button class="btnaj" onclick="voltarParte('+idx+')">refazer a parte '+
+         (degs.indexOf(d)+1)+' de '+degs.length+'</button>';
+    });
+    h+='</div>';
+  } else {
+    h+='<div class="montado-ok">✅ Texto completo e correto. É esta a ideia que a resposta escrita precisa ter.</div>';
+  }
+  h+='</div>';
+  return h;
+}
+function voltarParte(i){ iTela=i; tentAtual=1; render() }
 function parDaTentativa(deg,t,chave){
   const seq=sequenciaDePares(deg,chave||"x");
   const p=seq[(t-1)%seq.length];
-  // a cada tentativa entra UMA afirmação, ora verdadeira, ora falsa
-  const mostraCerta=((t-1)%2===0)?(Math.random()<0.65):(Math.random()<0.35);
-  const texto=mostraCerta?deg.ok[p.i]:deg.no[p.j];
-  const alts=(Math.random()<0.5)?["Verdadeiro","Falso"]:["Falso","Verdadeiro"];
-  const pos=alts.indexOf(mostraCerta?"Verdadeiro":"Falso");
-  return {alts:alts,cert:pos,afirma:texto};
+  const cert=deg.ok[p.i],err=deg.no[p.j];
+  return (Math.random()<0.5)?{alts:[cert,err],cert:0,afirma:null}
+                            :{alts:[err,cert],cert:1,afirma:null};
 }
 function ordemQDA(q,deg){
   // QDA = ordem de origem do tema, com o degrau dentro dele
@@ -1689,7 +2092,13 @@ function telaPergunta(r){
   const q=BANCO[r.qi],d=degrauDaTela(r),deg=q[r.deg];
   respondeuAgora=false;
   if(AJ.perg!==r.n){ AJ={trilha:null,pos:0,fim:false,lidas:[],perg:r.n} }
-  parAtual=(r.deg==="d5")?parOficialVF(deg,tentAtual,r.qi):parDaTentativa(deg,tentAtual,r.qi+"_"+r.deg);
+  if(q.disc&&deg.partes){
+    parAtual=parPartes(deg,r.qi+"_"+r.deg);
+  } else if(r.deg==="d5"&&deg.ok&&deg.no){
+    parAtual=parDaTentativa(deg,tentAtual,r.qi+"_d5");   // banco próprio: não espelha a prova
+  } else {
+    parAtual=(r.deg==="d5")?parOficialVF(deg,tentAtual,r.qi):parDaTentativa(deg,tentAtual,r.qi+"_"+r.deg);
+  }
 
   let h='<div class="card">';
   const posD=DEGRAUS[r.deg];   // posição no tema: D03, D04, D05 (ou D01/D02 na discursiva)
@@ -1702,32 +2111,66 @@ function telaPergunta(r){
        'Não é engano: nem todo tema termina no degrau mais alto.</div>';
   h+='<div style="font-size:16px;color:var(--cinza);font-weight:800;margin-bottom:8px">'+
      nomeAula(q.aula)+' · tema '+q.ordem+' de '+BANCO.length+TXT_QREF(q)+'</div>';
+/* ---- termos do glossário viram pastilha clicável DENTRO do texto ---- */
+function marcarTermos(txt,q){
+  if(!txt||!q.glossario) return txt;
+  const qi=BANCO.indexOf(q);
+  const ordem=q.glossario.map(function(g,i){return {t:g.t,i:i}})
+    .sort(function(a,b){return b.t.length-a.t.length});
+  const partes=String(txt).split(/(<[^>]*>)/);   // não mexe dentro de tag
+  for(let k=0;k<partes.length;k++){
+    if(partes[k].charAt(0)==="<") continue;
+    ordem.forEach(function(o){
+      const esc=o.t.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+      const re=new RegExp("(?<![\\wÀ-ú])("+esc+")(?![\\wÀ-ú])","i");
+      if(!re.test(partes[k])) return;
+      partes[k]=partes[k].replace(re,
+        '<button type="button" class="tchip" onclick="abrirG('+qi+','+o.i+')">$1</button>');
+    });
+  }
+  return partes.join("");
+}
+/* ---- sanduíche: o código entra no meio do contexto ---- */
+function contextoEmDuas(ctx){
+  const m=String(ctx).match(/^([\s\S]*?(?:abaixo|a seguir|seguinte)[^.]*\.)([\s\S]*)$/i);
+  if(!m) return [ctx,""];
+  return [m[1],m[2].trim()];
+}
   h+=linhaQ(q,r);
 
-  h+='<div class="cverde"><h3>'+q.titulo+' · '+q.persona+'</h3><p>'+q.contexto+'</p>';
+  const ctx=contextoEmDuas(q.contexto);
+  h+='<div class="gridq"><div class="col-pri">';
+  h+='<div class="cverde"><h3>'+q.titulo+' · '+q.persona+'</h3>'+
+     '<p>'+marcarTermos(ctx[0],q)+'</p>';
   if(q.codigo) h+= (q.codigo.trim().charAt(0)==="<")
       ? q.codigo
       : ('<div class="pycode">'+pintarPython(q.codigo)+'</div>');
-  if(r.deg!=="d3"&&q.fala) h+='<p style="margin-top:10px"><b>'+q.colega+'</b></p><div class="balao">“'+q.fala+'”</div>';
-  h+='<div style="margin-top:10px;font-size:16px;color:var(--cinza);font-weight:800">📖 Não entendeu um termo? Clique nele:</div>';
-  h+='<div>'+q.glossario.map(function(g,i){
-       return '<span class="gchip" onclick="abrirG('+BANCO.indexOf(q)+','+i+')">📖 '+g.t+'</span>'}).join("")+'</div>';
+  if(ctx[1]) h+='<p>'+marcarTermos(ctx[1],q)+'</p>';
+  h+='<div class="dicagl">📖 As palavras destacadas abrem uma explicação. Toque nelas enquanto lê.</div>';
   h+='</div>';
+  if(r.deg!=="d3"&&q.fala)
+    h+='<div class="cfala"><div class="cfala-t">💬 '+q.colega+'</div>'+
+       '<div class="balao">“'+marcarTermos(q.fala,q)+'”</div></div>';
 
-  if(r.deg==="d5"){
-    h+='<div class="croxo"><h3>Pergunta final deste tema</h3><p>'+deg.p+'</p>';
+  if(r.deg==="d5"&&!(q.disc&&parAtual.partes)){
+    h+='<div class="croxo"><h3>Pergunta final deste tema</h3><p>'+pergComEmoji(deg.p)+'</p>';
     if(parAtual.afirma)
-      h+='<div class="afirma"><b>Afirmação para julgar:</b><br>'+parAtual.afirma+'</div>';
+      h+='<div class="afirma"><b>Esta afirmação está certa ou errada?</b><br>'+parAtual.afirma+'</div>';
     h+='</div>';
   }
-  h+='<div class="claranja">💡 '+((r.deg==="d5"&&q.d5.dica)?q.d5.dica:(r.deg==="d5"&&q.disc?
+  const dicaTxt='<div class="claranja">💡 '+((r.deg==="d5"&&q.d5.dica)?q.d5.dica:(r.deg==="d5"&&q.disc?
       "Aqui a resposta é escrita com as suas palavras. Uma resposta completa traz o NOME de cada técnica e o MOTIVO de cada uma.":
-      d.dica))+'</div>';
-  if(r.deg==="d4") h+='<div class="cazul">🔎 Atenção ao ponto de vista: a resposta é <b>sobre a fala do colega</b>, não sobre o programa inteiro.</div>';
-  if(r.deg!=="d5"){
-    h+='<h3 style="margin-top:14px">'+deg.p+'</h3>';
+      d.dica))+'</div>'+
+      ((r.deg==="d4")?'<div class="cazul">🔎 Atenção ao ponto de vista: a resposta é <b>sobre a fala do colega</b>, não sobre o programa inteiro.</div>':'');
+  if(q.disc&&parAtual.partes){
+    const dg=degrausDe(q), np=dg.indexOf(r.deg)+1;
+    h+='<h3 style="margin-top:14px">'+pergComEmoji(deg.p)+'</h3>';
+    h+='<div class="afirma"><b>Parte '+np+' de '+dg.length+' da sua resposta.</b><br>'+
+       'Escolha o trecho que continua o texto com sentido. No fim, os cinco trechos viram a sua resposta.</div>';
+  } else if(r.deg!=="d5"){
+    h+='<h3 style="margin-top:14px">'+pergComEmoji(deg.p)+'</h3>';
     if(parAtual.afirma)
-      h+='<div class="afirma"><b>Afirmação para julgar:</b><br>'+parAtual.afirma+'</div>';
+      h+='<div class="afirma"><b>Esta afirmação está certa ou errada?</b><br>'+parAtual.afirma+'</div>';
   }
 
   h+='<div id="alts">'+parAtual.alts.map(function(a,i){
@@ -1736,8 +2179,20 @@ function telaPergunta(r){
          return '<button class="alt vf '+(v?"v":"f")+'" id="alt'+i+'" onclick="responder('+i+')">'+
                 '<span class="vfm">'+(v?"✔":"✘")+'</span><b>'+a.toUpperCase()+'</b></button>';
        }
-       return '<button class="alt" id="alt'+i+'" onclick="responder('+i+')"><span class="let">'+
-              String.fromCharCode(65+i)+')</span> '+a+'</button>'}).join("")+'</div>';
+       return '<button class="alt" id="alt'+i+'" onclick="responder('+i+')">'+
+              '<span class="frase">'+marcarTermos(a,q)+'</span></button>'}).join("")+'</div>';
+  if(r.deg==="d4") h+='<div class="cazul">🔎 Atenção ao ponto de vista: a resposta é <b>sobre a fala do colega</b>, não sobre o programa inteiro.</div>';
+  h+='</div>';                       // fecha a coluna principal
+  h+='<div class="col-lat">'+
+     '<div class="cardlat cl-dica"><div class="cl-t">💡 Dica</div><div class="cl-c">'+
+       ((r.deg==="d5"&&q.d5.dica)?q.d5.dica:d.dica)+'</div></div>'+
+     '<div class="cardlat cl-glos"><div class="cl-t">📘 Glossário</div><div class="cl-c">'+
+       q.glossario.map(function(g,i){
+         return '<p><button type="button" class="tchip" onclick="abrirG('+BANCO.indexOf(q)+','+i+')">'+
+                g.t+'</button> · '+g.d.split(/(?<=\.)\s+/)[0]+'</p>'}).join("")+
+     '</div></div>'+
+     '<div id="latsoc"></div>'+
+     '</div></div>';                 // fecha lateral e grid
   h+='<div id="pos"></div><div id="ajuda">'+blocoAjuda(r)+'</div>'+
      '<div id="chamada"></div>'+cartoes(q,r)+'</div>';
   document.getElementById("palco").innerHTML=h;
@@ -1761,6 +2216,10 @@ function responder(i){
     else if(k===i) b.classList.add("errado");
   });
   let h="";
+  const qq=BANCO[r.qi];
+  if(qq.disc&&parAtual.partes){
+    MONTAGEM[qq.of+"_"+r.deg]={texto:parAtual.alts[i],ok:certo};
+  }
   if(certo){
     registro[r.n]={tent:tentAtual,ts:Date.now(),ajudou:(AJ.lidas.length>0)};
     registro[r.n].selo=carimbar(r.n,tentAtual,registro[r.n].ts);
@@ -1776,7 +2235,19 @@ function responder(i){
     registro[r.n]={tent:4,ts:Date.now()};registro[r.n].selo=carimbar(r.n,4,registro[r.n].ts);
     registro[r.n].ajudou=true;
     h='<div class="veredito no">✘ Esta era a 4ª tentativa. Leia uma trilha da ajuda e siga em frente.</div>';
+    if(qq.disc&&parAtual.partes){
+      const dd=BANCO[r.qi][r.deg];
+      MONTAGEM[qq.of+"_"+r.deg]={texto:dd.partes.ok[0],ok:true};
+      h+='<div class="montado-x">Nesta parte, o trecho que fecha o sentido é: <b>'+dd.partes.ok[0]+'</b></div>';
+    }
   }
+  if(qq.soc&&qq.soc.length){
+    const s=qq.soc[Math.min(i,qq.soc.length-1)];
+    if(s) h+='<div class="csoc"><div class="csoc-t">🌱 Socioemocional · sobre a sua escolha</div>'+
+            (s.dim?'<div class="csoc-d">'+s.dim+'</div>':'')+'<p>'+s.txt+'</p></div>';
+  }
+  const ultima=(qq.disc&&parAtual.partes&&r.deg===degrausDe(qq)[degrausDe(qq).length-1]);
+  if(ultima) h+=textoMontado(qq);
   document.getElementById("pos").innerHTML=h;
   const aj=document.getElementById("ajuda");
   if(aj){
@@ -1787,13 +2258,13 @@ function responder(i){
       if(bt){ bt.disabled=true; bt.textContent="termine uma trilha para tentar de novo" }
     }
   }
-  atualizarStatus();desenharTrilha();pintarRodape();
+  atualizarStatus();desenharTrilha();pintarRodape();salvarProgresso();
 }
 
 /* ==================== AJUDA EM TRILHAS ==================== */
-const TRILHAS=[{id:"revisar",r:"📚 Me ajude a revisar a aula"},
-               {id:"pontos", r:"🎯 O que eu preciso dominar aqui?"},
-               {id:"analogia",r:"🍰 Me explique com uma comparação"}];
+const TRILHAS=[{id:"revisar", r:"📚 revisar a aula",  t:"Me ajude a revisar a aula"},
+               {id:"pontos",  r:"🎯 o que dominar",   t:"O que eu preciso dominar aqui?"},
+               {id:"analogia",r:"🍰 uma comparação",  t:"Me explique com uma comparação"}];
 let AJ={trilha:null,pos:0,fim:false,lidas:[]};
 
 function trilhasDe(r){
@@ -1816,28 +2287,71 @@ function ajudaObrigatoria(){ return tentAtual>=2 && !AJ.fim }
 function blocoAjuda(r){
   const T=trilhasDe(r);
   let h='<div class="luri"><div class="luri-t">💠 Ajuda</div>'+
-        '<div class="luri-s">Escolha uma trilha. Ela vem em pedacinhos: leia um, toque em «próxima dica» e siga até o fim.</div>'+
-        '<div class="luri-bs">';
+        '<div class="luri-s">Escolha uma trilha. Ela vem em pedacinhos: leia um, espere liberar e toque em «próxima dica».</div>'+
+        '<div class="abas abasaj">';
   TRILHAS.forEach(function(t){
     if(!T[t.id]) return;
-    h+='<button class="lb'+(AJ.lidas.indexOf(t.id)>=0?" fim":"")+'" onclick="abrirTrilha(\''+t.id+'\')">'+t.r+'</button>';
+    const on=(AJ.trilha===t.id);
+    h+='<button class="aba aj'+(on?" on":"")+(AJ.lidas.indexOf(t.id)>=0?" fim":"")+
+       '" title="'+t.t+'" onclick="abrirTrilha(\''+t.id+'\')">'+t.r+'</button>';
   });
-  h+='</div><div id="tr"></div></div>';
+  h+='</div><div id="tr">'+(AJ.trilha?"":'<div class="fatia vazia">Toque em uma das trilhas acima para começar.</div>')+'</div></div>';
   if(ajudaObrigatoria())
     h+='<div class="travaj">🔒 As alternativas ficam travadas até você terminar uma trilha.</div>';
   return h;
 }
-function abrirTrilha(id){ AJ.trilha=id; AJ.pos=0; mostrarFatia() }
+function segundosDaFatia(txt){
+  const n=String(txt||"").replace(/<[^>]*>/g," ").split(/\s+/).filter(Boolean).length;
+  return Math.max(4,Math.min(9,Math.round(n/6)));
+}
+function abrirTrilha(id){
+  AJ.trilha=id; AJ.pos=0;
+  const aj=document.getElementById("ajuda");
+  if(aj){
+    const r=roteiro[iTela];
+    aj.innerHTML=blocoAjuda(r)+(depoisDaAjuda?('<div id="depois">'+depoisDaAjuda+'</div>'):"");
+    if(ajudaObrigatoria()){
+      const bt=aj.querySelector("#depois .btn");
+      if(bt&&!AJ.fim){ bt.disabled=true; bt.textContent="termine uma trilha para tentar de novo" }
+    }
+  }
+  mostrarFatia();
+}
+function pintarDica(txt){
+  let t=String(txt||"");
+  // termo em destaque: o pedaço antes do primeiro " · " vira pastilha de código
+  const i=t.indexOf(" · ");
+  if(i>0&&i<60){
+    const termo=t.slice(0,i).replace(/<\/?b>/g,"");
+    t='<span class="tcod">'+termo+'</span>'+t.slice(i);
+  }
+  return t;
+}
 function mostrarFatia(){
   const r=roteiro[iTela],T=trilhasDe(r),fs=T[AJ.trilha];
   if(!fs) return;
   const ult=(AJ.pos>=fs.length-1);
-  let h='<div class="fatia">'+fs[AJ.pos]+'</div><div class="fatia-nav">'+
-        '<span class="fatia-cont">parte '+(AJ.pos+1)+' de '+fs.length+'</span>';
-  h+= ult ? '<button class="btnaj ok" onclick="fimTrilha()">✓ terminei esta trilha</button>'
-          : '<button class="btnaj" onclick="proxFatia()">próxima dica ▸</button>';
+  const seg=segundosDaFatia(fs[AJ.pos]);
+  const rot=TRILHAS.filter(function(x){return x.id===AJ.trilha})[0];
+  let h='<div class="fatia-tit">'+(rot?rot.t:"")+'</div>';
+  // as dicas se ACUMULAM: a nova entra embaixo, as anteriores continuam à vista
+  for(let k=0;k<=AJ.pos;k++){
+    h+='<div class="fatia'+(k<AJ.pos?" ja":"")+'"><span class="fnum">'+(k+1)+'</span>'+
+       '<span class="ftxt">'+pintarDica(fs[k])+'</span></div>';
+  }
+  h+='<div class="fatia-nav">'+
+     '<span class="fatia-cont">parte '+(AJ.pos+1)+' de '+fs.length+'</span>'+
+     '<span class="fatia-rel" id="relF"></span>';
+  h+= ult ? '<button class="btnaj ok" id="btF" disabled onclick="fimTrilha()">✓ terminei esta trilha</button>'
+          : '<button class="btnaj" id="btF" disabled onclick="proxFatia()">próxima dica ▸</button>';
   h+='</div>';
   document.getElementById("tr").innerHTML=h;
+  // contador invisível: nada de segundos na tela, só o botão liberando no fim
+  const bt=document.getElementById("btF");
+  setTimeout(function(){
+    const b=document.getElementById("btF");
+    if(b) b.disabled=false;
+  },seg*1000);
 }
 function proxFatia(){ AJ.pos++; mostrarFatia() }
 function fimTrilha(){
@@ -1845,10 +2359,11 @@ function fimTrilha(){
   if(AJ.lidas.indexOf(AJ.trilha)<0) AJ.lidas.push(AJ.trilha);
   const t=document.querySelector(".travaj"); if(t) t.remove();
   destravarAlternativas();
-  document.getElementById("tr").innerHTML=
-    '<div class="fatia">✅ Trilha concluída. Agora tente responder.</div>';
   const bt=document.querySelector("#depois .btn");
   if(bt){ bt.disabled=false; bt.textContent=bt.getAttribute("data-t")||"Tentar de novo" }
+  const tr=document.getElementById("tr");
+  if(tr) tr.insertAdjacentHTML("beforeend",
+    '<div class="fatia ok">✅ Trilha concluída. Agora tente responder.</div>');
 }
 function destravarAlternativas(){
   document.querySelectorAll("#alts .alt").forEach(function(b){ b.disabled=false; b.classList.remove("travada") });
@@ -1857,6 +2372,23 @@ function travarAlternativas(){
   document.querySelectorAll("#alts .alt").forEach(function(b){ b.disabled=true; b.classList.add("travada") });
 }
 
+let LIDOS={};
+try{ LIDOS=JSON.parse(localStorage.getItem(CHAVE+"_glos"))||{} }catch(e){ LIDOS={} }
+let G_ATUAL=null;
+function segundosDoTexto(txt){
+  const n=String(txt||"").split(/\s+/).filter(Boolean).length;
+  return Math.max(3,Math.min(6,Math.round(n/7)));
+}
+function partesDoTermo(g){
+  const p=String(g.d).split(/(?<=\.)\s+/);
+  const a=p.shift()||g.d, b=p.join(" ")||"";
+  const ex=(typeof EXTRA!=="undefined"&&EXTRA[g.t])?EXTRA[g.t]:null;
+  const r=[{rot:"o que é",txt:a}];
+  if(ex&&ex.serve) r.push({rot:"para que serve",txt:ex.serve});
+  if(b) r.push({rot:"o que não é",txt:b});
+  if(ex&&ex.ex) r.push({rot:"exemplo",txt:ex.ex});
+  return r;
+}
 function abrirG(qi,gi){
   const g=BANCO[qi].glossario[gi];
   const abas=partesDoTermo(g);
@@ -1950,7 +2482,7 @@ function telaCheckpoint(r){
    (n1>=7?"“Bom caminho. Antes de marcar, releia o trecho de código.”":
           "“Sem pressa. Vale mais acertar poucas com atenção do que responder tudo depressa.”"))+'</div>'+
   '<div style="font-size:16px;font-weight:800;color:'+(saidasTC===0?'var(--ok)':'var(--erro)')+';margin-bottom:10px">'+
-  '⛶ Saídas da tela cheia: '+saidasTC+'</div><div id="chamada"></div></div>';
+  '👁️ Saídas da tela cheia: '+saidasTC+'</div><div id="chamada"></div></div>';
 }
 
 /* ==================== FINAL ==================== */
@@ -2072,7 +2604,12 @@ function telaFinal(){
 
 function refazerTudo(){
   if(!confirm("Você vai recomeçar da 1ª pergunta. O resultado desta rodada fica guardado para comparar no fim. Continuar?")) return;
-  location.reload();
+  RODADA++;
+  registro={}; tentAtual=1; MONTAGEM={}; AJ={trilha:null,pos:0,fim:false,lidas:[]};
+  horaInicio=new Date();
+  iTela=roteiro.findIndex(function(x){return x.t!=="abertura"&&x.t!=="conviv"});
+  if(iTela<0) iTela=0;
+  salvarProgresso(); render();
 }
 
 /* ==================== INICIO ==================== */
@@ -2096,7 +2633,7 @@ setInterval(function(){
 if(MODO_TESTE){ window.__auditoria=function(codigo){ return eval(codigo) } }
 ["pedirTelaCheia","voltarTelaCheia","ignorarTelaCheia","abrirLista","pular","escolherTurma",
  "checarAcordo","painel","abrirG","fecharModal","responder","render","avancar","voltarTela",
- "proxFatia","refazerTudo","pintarRodape","trocarAba","fecharG","abrirTrilha","fimTrilha"].forEach(function(n){
+ "proxFatia","refazerTudo","retomar","comecarDoZero","pintarRodape","trocarAba","fecharG","abrirTrilha","fimTrilha","voltarParte","nomeDigitado"].forEach(function(n){
   try{ window[n]=eval(n) }catch(e){}
 });
 })();
